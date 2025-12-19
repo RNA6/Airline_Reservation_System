@@ -1,4 +1,20 @@
-<?php include('../header/header.php'); ?>
+<?php 
+
+session_start();
+
+if (isset($_SESSION['welcome'])): ?>
+    <p class="welcome-text">
+        <?= htmlspecialchars($_SESSION['welcome']) ?>
+    </p>
+<?php unset($_SESSION['welcome']); endif; ?>
+
+<?php
+
+$title ="Home";
+include('../header/header.php'); 
+
+?>
+
 <html lang="en">
 <head>
 <style>
@@ -31,6 +47,8 @@ body{background-color: #EBF5FF; margin: 0; padding: 0; height: 1680px; text-alig
 span{color:red;font-family: sans-serif;}
 
 .error{color: red; font-size: 16px; padding: auto; margin: 0; font-style: italic;}
+
+.welcome-text {color: #1C75BC; font-size: 26px; font-weight: 600; text-align: center; margin-top: 20px;}
 
 .part1 {
     position: relative;
@@ -182,7 +200,7 @@ span{color:red;font-family: sans-serif;}
             </label>
 
             <label><legend>Adult Passenger<span>*  </span><span class="error" id="vap"></span></legend>
-                <input type="number" name="Adult-Passenger" min="0"/>
+                <input type="number" name="Adult-Passenger" min="1"/>
             </label>
 
             <label><legend>Children Passenger</legend>
@@ -289,7 +307,7 @@ if (flightType === "Round Trip") {
 }
 
 var childPass = document.getElementsByName("Children-Passenger")[0];
-var infantPass = document.getElementsByName("Infants-Passenger")[0]; // انتبهي للاسم
+var infantPass = document.getElementsByName("Infants-Passenger")[0]; 
 
 var adultCount = parseInt(AdPass.value) || 0;
 var childCount = parseInt(childPass.value) || 0;

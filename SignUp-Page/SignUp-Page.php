@@ -1,4 +1,104 @@
-<?php include('../header/header.php'); ?>
+<?php
+
+$title ="Sign Up";
+
+session_start();
+include('../header/header.php'); 
+// الاتصال بقاعدة البيانات
+$host = "localhost";
+$user = "root";
+$password = ""; // ضع كلمة المرور إذا كانت موجودة
+$dbname = "flygo_system";
+$port = 3306;
+
+$conn = new mysqli($host, $user, $password, $dbname, $port);
+
+// التحقق من الاتصال
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// التحقق إذا تم الضغط على زر Sign Up
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // استلام البيانات من الفورم
+    $first_name = trim($_POST['first-name']);
+    $last_name = trim($_POST['last-name']);
+    $nationality = $_POST['nationality'];
+    $passport = trim($_POST['passport-number']);
+    $phone = trim($_POST['phone-number']);
+    $email = trim($_POST['email']);
+    $birth_date = $_POST['birth-date'];
+
+    // الحقول الاختيارية مثل title
+    $title = isset($_POST['title']) ? $_POST['title'] : null;
+
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm-password'];
+
+    // تشفير كلمة المرور
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // التحقق من عدم تكرار الباسبورت في جدول passenger
+    $stmt = $conn->prepare("SELECT passport FROM passenger WHERE passport = ?");
+    $stmt->bind_param("s", $passport);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        die("Passport number already exists."); ///////////////////////////////////////////////////////////////////////////////
+    }
+    $stmt->close();
+
+    // التحقق من عدم تكرار الإيميل في جدول user
+    $stmt = $conn->prepare("SELECT email FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        die("Email already exists."); /////////////////////////////////////////////////////////////////////////////////////////
+    }
+    $stmt->close();
+
+    // حساب age_group تلقائي (Child, Adult, Senior)
+    $today = new DateTime();
+    $birth = new DateTime($birth_date);
+    $age = $today->diff($birth)->y;
+
+    if ($age < 12) {
+        $age_group = "Child";
+    } elseif ($age < 60) {
+        $age_group = "Adult";
+    } else {
+        $age_group = "Senior";
+    }
+
+    // إدخال البيانات في جدول passenger
+    $stmt = $conn->prepare("INSERT INTO passenger (title, first_name, last_name, nationality, passport, birth_date, age_group) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $title, $first_name, $last_name, $nationality, $passport, $birth_date, $age_group);
+
+    if (!$stmt->execute()) {
+        die("Error inserting into passenger: " . $stmt->error); ///////////////////////////////////////////////////////////////
+    }
+    $stmt->close();
+
+    // إدخال البيانات في جدول user
+    $stmt = $conn->prepare("INSERT INTO user (passport, email, password, phone_number) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $passport, $email, $hashedPassword, $phone);
+
+    if ($stmt->execute()) {
+        echo "Sign Up successful!"; ////////////////////////////////////////////////////////////////////////////////////////
+        // هنا يمكن إعادة التوجيه لصفحة تسجيل الدخول
+        // header("Location: signIn.php");
+        // exit;
+    } else {
+        die("Error inserting into user: " . $stmt->error); /////////////////////////////////////////////////////////////////
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 
 <html lang="en">
 <head>
@@ -51,8 +151,8 @@
             <label><legend>Nationality<span>*  </span><span class="error" id="vnation"></span></legend>
                 <select name="nationality">
                     <option value="" disabled selected>Select Nationality</option>
-                    <option value="sa">Saudi Arabia</option>
-                    <option value="br">Brazilian</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Brazilian">Brazilian</option>
                 </select>
             </label>
         
@@ -79,7 +179,7 @@
                     <option value="" disabled selected>Select Title</option>
                     <option value="Mr">Mr</option>
                     <option value="Mrs">Mrs</option>
-                    <option value="Miss">Mrs</option>
+                    <option value="Ms">Ms</option>
                 </select>
             </label>
         
@@ -182,7 +282,7 @@
                 nameRegex = /^[A-Za-zأ-يءئؤإآة\s]+$/;
                 if(!nameRegex.test(lname.value.trim())){
                     lname.style.border = "2px solid red";
-                    رlname.innerText = "(Please enter a valid name)";
+                    vlname.innerText = "(Please enter a valid name)";
                     valid = false;
                 }
             }
@@ -292,7 +392,7 @@
         }
 
         if(valid){
-            document.querySelector('.signIn-form').submit();
+            document.querySelector('.signUp-form').submit();
         }
 
         return valid;

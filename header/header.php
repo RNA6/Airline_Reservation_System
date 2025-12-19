@@ -1,8 +1,10 @@
+<?php $title ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>FlyGo</title>
+    <title><?php echo $title ?> | FlyGo</title>
+	<link rel="shortcut icon" href="../header/title_icon.ico">
 
     <style>
         body{ margin: 0; padding: 0;  font-family: serif;}
@@ -58,7 +60,8 @@
     </style>
 
 <script>
-let loggedIn = false; // ← غيّريها إلى true إذا الشخص مسجّل
+let loggedIn = <?php echo isset($_SESSION['passport']) ? 'true' : 'false'; ?>;
+
 
 function toggleUserMenu() {
     document.getElementById("userDropdown").style.display =
@@ -82,11 +85,13 @@ function updateUserMenu() {
     }
 }
 
-// إغلاق القائمة عند الضغط خارجها
+
 window.onclick = function(event) {
     if (!event.target.matches('.user-icon')) {
         document.getElementById("userDropdown").style.display = "none";
     }
+    let loggedIn = <?php echo isset($_SESSION['passport']) ? 'true' : 'false'; ?>;
+updateUserMenu();
 }
 </script>
 
@@ -101,14 +106,14 @@ window.onclick = function(event) {
 
         <div class="header-menu">
             <ul>
-                <a href="../home/home.php"><li class="header-li">Home</li></a>
-                <a href="#"><li class="header-li">About Us</li></a>
-                <a href="#"><li class="header-li">Contact</li></a>
+                <a href="../home/home.php" class="Home on"><li class="Home <?php if($title === "Home") echo "on"; ?>">Home</li></a>
+                <a href="#"><li>About Us</li></a>
+                <a href="#"><li>Contact</li></a>
             </ul>
         </div>
 
         <div>
-            <h3 id="htext">For faster experience <a id="logIn" href="../SignIn-Page/SignIn-Page.php">Log In</a></h3>
+            <h3 id="htext" class="only-not-logged">For faster experience <a id="logIn" href="../SignIn-Page/SignIn-Page.php">Log In</a></h3>
             
 
             <div class="user-menu-container">
@@ -116,12 +121,12 @@ window.onclick = function(event) {
 
                  <div class="user-dropdown" id="userDropdown">
                     <!-- لو المستخدم مسجّل دخول -->
-                    <a href="#" class="logged-in only-logged">User Info</a>
+                    <a href="../Profile/Profile.php" class="logged-in only-logged">User Info</a>
                     <a href="#" class="logged-in only-logged">My Trips</a>
-                    <a href="#" class="logged-in only-logged">Log Out</a>
+                    <a href="../LogOut.php" class="logged-in only-logged">Log Out</a>
 
                     <!-- لو المستخدم غير مسجّل -->
-                    <a href="#" class="not-logged only-not-logged">Log In</a>
+                    <a href="../SignIn-Page/SignIn-Page.php" class="not-logged only-not-logged">Log In</a>
                 </div>
             </div>
             <!-- <img Id="user-img" -->
