@@ -1,19 +1,19 @@
-<!Doctype HTML>
+<?php include('../header/header.php'); ?>
 <html lang="en">
 <head>
 <style>
 
 body{background-color: #EBF5FF; margin: 0; padding: 0; height: 1680px; text-align: center; font-family: serif;}
-.part1{position: relative; width: 100%; height: 700px; overflow: hidden; text-align: center;}
+.part1{position: relative; width: 100%; height: 700px; overflow: hidden; text-align: center; }
 .back{position: absolute; background-image:url("plain image.jpg"); width:100%; height:100%; margin: 0; padding: 0; filter: blur(2px); background-size: cover;  background-position: center; z-index: -1;}
-#t1{ color:white; font-size: 44px; font-weight: bold; margin-top: 150px; text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.75);}
-.book{width: 437px; height: 347px; background-color:white; border-radius: 80px; text-align: center; margin: 45px 150px 0 122px; overflow: hidden; float: left; padding: 0; box-shadow: 0px 3px 4px rgba(-2, 4, 4, 0.25);}
-.view{width: 437px; height: 347px; background-color:white; border-radius: 80px; text-align: center; margin: 45px 0 122px 0; overflow: hidden; float: left; padding: 0; box-shadow: 0px 3px 4px rgba(-2, 4, 4, 0.25);}
+#t1{ color:white; font-size: 44px; font-weight: bold; text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.75);}
+.book{width: 437px; height: 347px; background-color:white; border-radius: 80px; text-align: center; overflow: hidden; padding: 0; box-shadow: 0px 3px 4px rgba(-2, 4, 4, 0.25);}
+.view{width: 437px; height: 347px; background-color:white; border-radius: 80px; text-align: center; overflow: hidden; padding: 0; box-shadow: 0px 3px 4px rgba(-2, 4, 4, 0.25);}
 #tbook, #tview {color: black; font-size: 36px; margin-top: 35px; font-weight: 500;}
-.button{background-color: #1C75BC; width: 142px; height: 40px; color:white; font-size: 24px; font-weight: 500; padding-bottom: 4px; border-radius: 80px; border: none; margin-bottom: 60px;}
+.button{background-color: #1C75BC; width: 142px; height: 40px; color:white; font-size: 24px; font-weight: 500; padding-bottom: 4px; border-radius: 80px; border: none; margin-bottom: 60px; font-family: serif;}
 .part1 p{color: #696969; font-size: 22px; margin: 20px 40px 50px; text-align:justify; display: inline-block;}
 
-.part2{ width: 1100px; height: 710px; overflow: visible; text-align: center; background-color:white; border-radius: 80px; box-shadow: 5px -5px 4px rgba(220, 235, 251, 0.50), -5px 5px 4px rgba(220, 235, 251, 1); padding: 0; margin: 100px auto; display:inline-block; padding-bottom: 60px;}
+#part2{ width: 1100px; height: 710px; overflow: visible; text-align: center; background-color:white; border-radius: 80px; box-shadow: 5px -5px 4px rgba(220, 235, 251, 0.50), -5px 5px 4px rgba(220, 235, 251, 1); padding: 0; margin: 100px auto; display:inline-block; padding-bottom: 60px;}
 #p2t{color: black; font-size: 44px; margin: 50px 0; font-weight:600;}
 
 .radio-label {margin: 0 40px; display: inline-flex; align-items: center; font-size: 26px; color: black; font-weight:400;}
@@ -28,10 +28,52 @@ body{background-color: #EBF5FF; margin: 0; padding: 0; height: 1680px; text-alig
 
 #Search-button{margin-left: 850px; margin-top: -60px;}
 
-span{color:red;}
+span{color:red;font-family: sans-serif;}
 
 .error{color: red; font-size: 16px; padding: auto; margin: 0; font-style: italic;}
 
+.part1 {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* محاذاة النصوص و الحاويات للوسط */
+    justify-content: center;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("plain image.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+    z-index: -1;
+}
+
+.boxes-container {
+    display: flex;
+    gap: 50px; /* المسافة بين الصناديق */
+    margin-top: 50px;
+}
+
+.book, .view {
+    width: 437px;
+    height: 347px;
+    background-color: white;
+    border-radius: 80px;
+    text-align: center;
+    padding: 0;
+    box-shadow: 0px 3px 4px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 
 </style>
@@ -73,28 +115,31 @@ span{color:red;}
 
 <body>
 
-<section id="s1">
+
     <div class="part1">
         <div class="back"></div>
         <h1 id="t1">Exceptional Flights… A Different Travel Experience</h1>
 
-        <div class="book">
-            <h1 id="tbook">Book</h1>
-            <p>Discover the best flight options and secure your seat with quick, reliable booking.<br></p>
-            <a href="#part2"><button class="button"name="book now">Book Now</button></a>
-        </div>
+        <div class="boxes-container">
+            <div class="book">
+                <h1 id="tbook">Book</h1>
+                <p>Discover the best flight options and secure your seat with quick, reliable booking.</p>
+                <a href="#part2"><button class="button" name="book now">Book Now</button></a>
+            </div>
 
-        <div class="view">
-            <h1 id="tview">View</h1>
-            <p>Access your booked ticket details and review all the information for your upcoming trip in one place.</p>
-            <a href="#"><button class="button" name="view now">View Now</button></a>
+            <div class="view">
+                <h1 id="tview">View</h1>
+                <p>Access your booked ticket details and review all the information for your upcoming trip in one place.</p>
+                <a href="#"><button class="button" name="view now">View Now</button></a>
+            </div>
         </div>
     </div>
-</section>
+
+
 
 <!-- BOOK A FLIGHT -->
-<section id="s2">
-    <div class="part2">
+
+    <div id="part2">
         
         <h1 id="p2t">Book a Flight</h1>
 
@@ -150,13 +195,13 @@ span{color:red;}
         </div>
         <input type="submit" class="button" id="Search-button" name="Search" value="Search" onclick="return validateBook()" />
 
-        
+    
 
         </form>
 
         
     </div>
-</section>
+
 
 <script>
     function validateBook(){
@@ -267,3 +312,5 @@ return valid;
 </body>
 
 </html>
+
+<?php include('../footer/footer.php'); ?>

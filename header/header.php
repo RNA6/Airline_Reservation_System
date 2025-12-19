@@ -5,18 +5,18 @@
     <title>FlyGo</title>
 
     <style>
-        body{background-color: #EBF5FF; margin: 0; padding: 0; height: 1000px;}
+        body{ margin: 0; padding: 0;  font-family: serif;}
         .divHeader{width:100%; height:75px; background-color: white; margin: 0; padding: 0; box-shadow: -5px 1px 4px 0px rgba(0, 0, 0, 0.25); vertical-align: middle;}
         #logo-img{width:192px; height: 45.19px;}
         .logo-div{display: inline-block; vertical-align: middle; margin-top: 15px; margin-left: 15px;}
         .header-menu ul{list-style-type: none; padding: 0; margin: 0;}
         .header-menu{display: inline-block; vertical-align: middle; margin-top:9px; text-align: center; margin: 9px 170px 0 170px;}
-        .header-menu a{display:inline-block; text-decoration: none; width:120px; text-align: center; padding: 10px; color:#1C75BC; font-size:20px; font-weight:normal; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /*background-color: #EBF5FF;*/}
-        h3, #logIn{color:#1C75BC; font-size:18px; font-weight:normal; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: inline-block;}
+        .header-menu a{display:inline-block; text-decoration: none; width:120px; text-align: center; padding: 10px; color:#1C75BC; font-size:20px; font-weight:normal; font-family:serif; /*background-color: #EBF5FF;*/}
+        #htext, #logIn{color:#1C75BC; font-size:18px; font-weight:normal; display: inline-block; margin-top:13px ;}
         #user-img{width:47px; height: 47px;}
         .user-picture, div{margin: 0; padding: 0; display: inline-block; vertical-align: middle;}
-        div{margin-top:6px;}
-        h3{margin-right: 5px;}
+        
+        #htext{margin-right: 5px;}
 
         .user-menu-container {
     position: relative;
@@ -96,19 +96,19 @@ window.onclick = function(event) {
     <div class="divHeader"> 
 
         <div class="logo-div">
-            <a href="#"><img id="logo-img" src="Logo.png" /></a>
+            <a href="#"><img id="logo-img" src="../header/Logo.png" /></a>
         </div>
 
         <div class="header-menu">
             <ul>
-                <a href="#"><li class="header-li">Home</li></a>
+                <a href="../home/home.php"><li class="header-li">Home</li></a>
                 <a href="#"><li class="header-li">About Us</li></a>
                 <a href="#"><li class="header-li">Contact</li></a>
             </ul>
         </div>
 
         <div>
-            <h3>For faster experience <a id="logIn" href="#">Log In</a></h3>
+            <h3 id="htext">For faster experience <a id="logIn" href="../SignIn-Page/SignIn-Page.php">Log In</a></h3>
             
 
             <div class="user-menu-container">

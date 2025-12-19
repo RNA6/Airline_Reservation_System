@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+<?php include('../header/header.php'); ?>
+
 <html lang="en">
 <head>
     <title>Sign Up</title>
 
     <style>
         body{background-color: #EBF5FF; margin: 0; padding: 0; height: 550px; text-align: center; font-family: serif;}
-        .signUp-background{ width: 1100px; height: 950px; overflow: visible; text-align: center; background-color:white; border-radius: 80px; box-shadow: 5px -5px 4px rgba(220, 235, 251, 0.50), -5px 5px 4px rgba(220, 235, 251, 1); padding: 0; margin: 100px auto; display:inline-block; padding-bottom: 60px;}
+        .signUp-background{ width: 1100px; height: 890px; overflow: visible; text-align: center; background-color:white; border-radius: 80px; box-shadow: 5px -5px 4px rgba(220, 235, 251, 0.50), -5px 5px 4px rgba(220, 235, 251, 1); padding: 0; margin: 60px auto; display:inline-block; padding-bottom: 60px;}
         #p2t{color: black; font-size: 44px; margin: 50px 0; font-weight:600;}
 
         .signUp-form input, .signUp-form select{width:400px; height:53px; border-radius: 10px; border: none; background-color:#EEEEEE; font-size:20px; font-weight:lighter; margin-bottom: 25px; text-align:left;}
@@ -19,14 +20,14 @@
         h3{color:#696969; font-size:18px; font-weight:normal; padding:0;}
         #SignIn{color:#696969; font-size:18px; font-weight:normal;}
 
-        button, #SignIn-button{background-color: #1C75BC; width: 415px; height: 53px; color:white; font-size: 24px; font-weight: 500; padding-bottom: 5px; border-radius: 80px; border: none; margin-bottom:0; margin: 30px;}
+        button, #SignIn-button{background-color: #1C75BC; width: 415px; height: 53px; color:white; font-size: 24px; font-weight: 500; padding-bottom: 5px; border-radius: 80px; border: none; margin-bottom:0; margin: 30px; font-family:serif;}
         #back-button{background-color: #9F9F9F;}
 
-        span{color:red;}
+        span{color:red; font-family: serif;}
 
         #SignIn-button{text-align: center;}
 
-        .error{color: red; font-size: 16px; padding: auto; margin: 0; font-style: italic;}
+        .error{color: red; font-size: 16px; padding: auto; margin: 0; font-style: italic; font-family: sans-serif;}
 
 
     </style>
@@ -91,7 +92,7 @@
                 <input id="conpass" type="password" name="confirm-password"/>
             </label>
 
-            <a href="../home/home.html"><button id="back-button" name="back-button">Back</button></a>
+            <a href="../home/home.php"><button type="button" id="back-button" name="back-button">Back</button></a>
             <input type="submit" id="SignIn-button" value="Sign Up" onclick="return validateSignIn()"/> 
             
         </form>
@@ -302,3 +303,4 @@
     
 </body>
 </html>
+<?php include('../footer/footer.php'); ?>
