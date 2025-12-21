@@ -42,102 +42,70 @@ $stmt->close();
 
 
 include('../header/header.php');
-?>
+
+if (isset($_SESSION['Profile_success'])): ?>
+<script>
+    alert("<?= $_SESSION['Profile_success'] ?>");
+</script>
+<?php unset($_SESSION['Profile_success']); endif; ?>
 
 
-<html lang="en">
+
+
 <head>
-    <title>Profile</title>
+        <link rel="stylesheet" href="../style.css" type="text/css">
+<head>
 
-    <style>
-        body{background-color: #EBF5FF; margin: 0; padding: 0; height: 550px; text-align: center; font-family: serif;}
-        .signUp-background{ width: 1100px; height: 890px; overflow: visible; text-align: center; background-color:white; border-radius: 80px; box-shadow: 5px -5px 4px rgba(220, 235, 251, 0.50), -5px 5px 4px rgba(220, 235, 251, 1); padding: 0; margin: 60px auto; display:inline-block; padding-bottom: 60px;}
-        #p2t{color: black; font-size: 44px; margin: 50px 0; font-weight:600;}
-
-        .signUp-form input, .signUp-form select{width:400px; height:53px; border-radius: 10px; border: none; background-color:#EEEEEE; font-size:20px; font-weight:lighter; margin-bottom: 25px; text-align:left;}
-
-        .signUp-form select{padding-left: 15px; width:415px;}
-
-        input{padding-left: 15px;}
-
-        .signUp-form label{ font-size:20px; text-align:left; display: inline-block; margin:10px 30px;}
-
-        h3{color:#696969; font-size:18px; font-weight:normal; padding:0;}
-        #SignIn{color:#696969; font-size:18px; font-weight:normal;}
-
-        button, #SignIn-button{background-color: #1C75BC; width: 415px; height: 53px; color:white; font-size: 24px; font-weight: 500; padding-bottom: 5px; border-radius: 80px; border: none; margin-bottom:0; margin: 30px; font-family:serif;}
-        #back-button{background-color: #9F9F9F;}
-
-        span{color:red; font-family: serif;}
-
-        #SignIn-button{text-align: center;}
-
-        .error{color: red; font-size: 16px; padding: auto; margin: 0; font-style: italic; font-family: sans-serif;}
-
-
-    </style>
-
-</head>
-<body>
-
-    <div class="signUp-background">
-        <h1 id="p2t">Profile</h1>
+<body id="profile-body">
+    <div class="profile-background">
+        <h1 id="profile-title">Profile</h1>
         <br>
-        <form class="signUp-form" method="POST" action="">
+        <form class="profile-form">
         
-            <label><legend>First Name</legend>
-                <input type="text" value="<?= htmlspecialchars($user['first_name']) ?>" disabled/>
+            <label class="profile-label"><legend>First Name</legend>
+                <input class="profile-input" type="text" value="<?= htmlspecialchars($user['first_name']) ?>" disabled/>
             </label>
         
-            <label><legend>Last Name</legend>
-                <input type="text" value="<?= htmlspecialchars($user['last_name']) ?>" disabled/>
+            <label class="profile-label"><legend>Last Name</legend>
+                <input class="profile-input" type="text" value="<?= htmlspecialchars($user['last_name']) ?>" disabled/>
             </label>
         
-            <label><legend>Nationality</legend>
-                <input type="text" value="<?= htmlspecialchars($user['nationality']) ?>" disabled/>
+            <label class="profile-label"><legend>Nationality</legend>
+                <input class="profile-input" type="text" value="<?= htmlspecialchars($user['nationality']) ?>" disabled/>
             </label>
         
-            <label><legend>Passport Number</legend>
-                <input type="text" value="<?= htmlspecialchars($user['passport']) ?>" disabled/>
+            <label class="profile-label"><legend>Passport Number</legend>
+                <input class="profile-input" type="text" value="<?= htmlspecialchars($user['passport']) ?>" disabled/>
             </label>
         
-            <label><legend>Phone Number</legend>
-                <input type="text" value="<?= htmlspecialchars($user['phone_number']) ?>" disabled/>
+            <label class="profile-label"><legend>Phone Number</legend>
+                <input class="profile-input" type="text" value="<?= htmlspecialchars($user['phone_number']) ?>" disabled/>
             </label>
         
+            <label class="profile-label"><legend>Email</legend>
+                <input class="profile-input" tupe="text" value="<?= htmlspecialchars($user['email']) ?>" disabled/>
             </label>
         
-            <label><legend>Email</legend>
-                <input type="text" value="<?= htmlspecialchars($user['email']) ?>" disabled/>
+            <label class="profile-label"><legend>Birth Date</legend>
+                <input class="profile-input" type="text" value="<?= htmlspecialchars($user['birth_date']) ?>" disabled/>
             </label>
         
-            <label><legend>Birth Date</legend>
-                <input type="date" value="<?= htmlspecialchars($user['birth_date']) ?>" disabled/>
-            </label>
-        
-            <label><legend>Title</legend>
-                <input type="text" value="<?= htmlspecialchars($user['title']) ?>" disabled/>
+            <label class="profile-label"><legend>Title</legend>
+                <input class="profile-input" type="text" value="<?= htmlspecialchars($user['title']) ?>" disabled/>
             </label>
         
         
-            <label><legend>Password</legend>
-                <input type="password" value="<?= htmlspecialchars($user['title']) ?>" disabled/>
+            <label class="profile-label"><legend>Password</legend>
+                <input class="profile-input" type="password" value="********" disabled/>
             </label>
         
-            <label style="visibility: hidden"><legend>Confirm Password</legend>
-                <input id="conpass" type="password" name="confirm-password"/>
-            </label>
-
-            <a href="../home/home.php"><button type="button" id="back-button" name="back-button">Back</button></a>
-            <!-- <input type="submit" id="SignIn-button" value="Sign Up" onclick="return validateSignIn()"/> -->
-            <a href="../Profile/Update-Profile.php"><button type="button" id="SignIn-button" name="Update">Update</button></a>
+            <br>
+            <a href="../home/home.php"><button type="button" id="profile-back-button" name="back-button">Back</button></a>
+            <a href="../Profile/Update-Profile.php"><button type="button" id="profile-button" name="update-button">Update</button></a>
             
         </form>
 
 
-
     </div>
-    
-</body>
-</html>
+<body>
 <?php include('../footer/footer.php'); ?>

@@ -2,7 +2,7 @@
 session_start();
 require_once "../flygo_system_sqldb/db.php";
 
-// مسح أخطاء سابقة
+//delete previous errors
 $_SESSION['login_email_error'] = "";
 $_SESSION['login_pass_error'] = "";
 
@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST['user-email']);
     $password = $_POST['user-password'];
 
-    // جلب المستخدم بالإيميل
+    //bring user's email
     $sql = "
         SELECT 
             u.passport,
@@ -27,23 +27,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // ❌ الإيميل غير موجود
+    //if email not found
     if ($result->num_rows === 0) {
         $_SESSION['login_email_error'] = "Email does not exist";
-        header("Location: SignIn-Page.php");
+        header("Location: ../SignIn-Page/SignIn-Page.php");
         exit;
     }
 
     $user = $result->fetch_assoc();
 
-    // ❌ كلمة المرور خاطئة
+    //if password wrong
     if (!password_verify($password, $user['password'])) {
         $_SESSION['login_pass_error'] = "Incorrect password";
         header("Location: ../SignIn-Page/SignIn-Page.php");
         exit;
     }
 
-    // ✅ تسجيل دخول ناجح
+    //Successful log in
     $_SESSION['passport']   = $user['passport'];
     $_SESSION['first_name'] = $user['first_name'];
     $_SESSION['welcome']    = "Hello {$user['first_name']}, Welcome Back to FlyGo Website";

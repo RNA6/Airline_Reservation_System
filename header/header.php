@@ -4,60 +4,8 @@
 
 <head>
     <title><?php echo $title ?> | FlyGo</title>
+    <link rel="stylesheet" href="../style.css" type="text/css">
 	<link rel="shortcut icon" href="../header/title_icon.ico">
-
-    <style>
-        body{ margin: 0; padding: 0;  font-family: serif;}
-        .divHeader{width:100%; height:75px; background-color: white; margin: 0; padding: 0; box-shadow: -5px 1px 4px 0px rgba(0, 0, 0, 0.25); vertical-align: middle;}
-        #logo-img{width:192px; height: 45.19px;}
-        .logo-div{display: inline-block; vertical-align: middle; margin-top: 15px; margin-left: 15px;}
-        .header-menu ul{list-style-type: none; padding: 0; margin: 0;}
-        .header-menu{display: inline-block; vertical-align: middle; margin-top:9px; text-align: center; margin: 9px 170px 0 170px;}
-        .header-menu a{display:inline-block; text-decoration: none; width:120px; text-align: center; padding: 10px; color:#1C75BC; font-size:20px; font-weight:normal; font-family:serif; /*background-color: #EBF5FF;*/}
-        #htext, #logIn{color:#1C75BC; font-size:18px; font-weight:normal; display: inline-block; margin-top:13px ;}
-        #user-img{width:47px; height: 47px;}
-        .user-picture, div{margin: 0; padding: 0; display: inline-block; vertical-align: middle;}
-        
-        #htext{margin-right: 5px;}
-
-        .user-menu-container {
-    position: relative;
-    display: inline-block;
-}
-
-.user-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.user-dropdown {
-    position: absolute;
-    right: 0;
-    background: white;
-    padding: 10px 0;
-    width: 160px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
-    display: none; /* مخفية افتراضيًا */
-    text-align: left;
-    z-index: 999;
-}
-
-.user-dropdown a {
-    display: block;
-    padding: 10px 15px;
-    color: black;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.user-dropdown a:hover {
-    background-color: #F1F1F1;
-}
-
-    </style>
 
 <script>
 let loggedIn = <?php echo isset($_SESSION['passport']) ? 'true' : 'false'; ?>;
@@ -97,7 +45,7 @@ updateUserMenu();
 
 
 </head>
-<body>
+<body class= "header-body">
     <div class="divHeader"> 
 
         <div class="logo-div">
@@ -105,31 +53,31 @@ updateUserMenu();
         </div>
 
         <div class="header-menu">
+
             <ul>
-                <a href="../home/home.php" class="Home on"><li class="Home <?php if($title === "Home") echo "on"; ?>">Home</li></a>
-                <a href="#"><li>About Us</li></a>
-                <a href="#"><li>Contact</li></a>
+                <li class="Home <?php if($title === "Home") echo "on"; ?>"><a href="../home/home.php">Home</a></li>
+                <li class="About Us <?php if($title === "About Us") echo "on"; ?>"><a href="#">About Us</a></li>
+                <li class="Contact <?php if($title === "Contact") echo "on"; ?>"><a href="#">Contact</a></li>
             </ul>
         </div>
 
-        <div>
-            <h3 id="htext" class="only-not-logged">For faster experience <a id="logIn" href="../SignIn-Page/SignIn-Page.php">Log In</a></h3>
+        <div class="header-text-img">
+           <h3 id="htext" class="only-not-logged">For faster experience <a id="logIn" href="../SignIn-Page/SignIn-Page.php">Log In</a></h3> 
             
 
             <div class="user-menu-container">
                 <img src="../header/userProfile.png" class="user-icon" onclick="toggleUserMenu()">
 
                  <div class="user-dropdown" id="userDropdown">
-                    <!-- لو المستخدم مسجّل دخول -->
+                    <!-- If user in login -->
                     <a href="../Profile/Profile.php" class="logged-in only-logged">User Info</a>
                     <a href="#" class="logged-in only-logged">My Trips</a>
-                    <a href="../LogOut.php" class="logged-in only-logged">Log Out</a>
+                    <a href="../header/LogOut.php" class="logged-in only-logged">Log Out</a>
 
-                    <!-- لو المستخدم غير مسجّل -->
+                    <!-- If user in logOut -->
                     <a href="../SignIn-Page/SignIn-Page.php" class="not-logged only-not-logged">Log In</a>
                 </div>
             </div>
-            <!-- <img Id="user-img" -->
         </div>
 
     </div>

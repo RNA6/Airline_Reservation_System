@@ -1,7 +1,15 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "flygo_system", 3306);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+
+$host = "localhost";
+$username = "root";
+$pass = "";
+$db = "flygo_system";
+
+$conn = mysqli_connect($host, $username, $pass, $db);
+
+if (!$conn) {
+    $_SESSION['SignUp_error'] = "Database connection failed. Please try again later.";
+    header("Location: ../SignUp-Page/SignUp-Page.php");
+    exit;
 }
-?>
