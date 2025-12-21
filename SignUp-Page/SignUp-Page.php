@@ -1,181 +1,49 @@
-<?php
-
-$title ="Sign Up";
-
+<?php 
 session_start();
-include('../header/header.php'); 
-// الاتصال بقاعدة البيانات
-$host = "localhost";
-$user = "root";
-$password = ""; // ضع كلمة المرور إذا كانت موجودة
-$dbname = "flygo_system";
-$port = 3306;
+$title ="Sign Up";
+include('../header/header.php'); ?>
 
-$conn = new mysqli($host, $user, $password, $dbname, $port);
-
-// التحقق من الاتصال
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// التحقق إذا تم الضغط على زر Sign Up
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // استلام البيانات من الفورم
-    $first_name = trim($_POST['first-name']);
-    $last_name = trim($_POST['last-name']);
-    $nationality = $_POST['nationality'];
-    $passport = trim($_POST['passport-number']);
-    $phone = trim($_POST['phone-number']);
-    $email = trim($_POST['email']);
-    $birth_date = $_POST['birth-date'];
-
-    // الحقول الاختيارية مثل title
-    $title = isset($_POST['title']) ? $_POST['title'] : null;
-
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm-password'];
-
-    // تشفير كلمة المرور
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    // التحقق من عدم تكرار الباسبورت في جدول passenger
-    $stmt = $conn->prepare("SELECT passport FROM passenger WHERE passport = ?");
-    $stmt->bind_param("s", $passport);
-    $stmt->execute();
-    $stmt->store_result();
-    if ($stmt->num_rows > 0) {
-        die("Passport number already exists."); ///////////////////////////////////////////////////////////////////////////////
-    }
-    $stmt->close();
-
-    // التحقق من عدم تكرار الإيميل في جدول user
-    $stmt = $conn->prepare("SELECT email FROM user WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-    if ($stmt->num_rows > 0) {
-        die("Email already exists."); /////////////////////////////////////////////////////////////////////////////////////////
-    }
-    $stmt->close();
-
-    // حساب age_group تلقائي (Child, Adult, Senior)
-    $today = new DateTime();
-    $birth = new DateTime($birth_date);
-    $age = $today->diff($birth)->y;
-
-    if ($age < 12) {
-        $age_group = "Child";
-    } elseif ($age < 60) {
-        $age_group = "Adult";
-    } else {
-        $age_group = "Senior";
-    }
-
-    // إدخال البيانات في جدول passenger
-    $stmt = $conn->prepare("INSERT INTO passenger (title, first_name, last_name, nationality, passport, birth_date, age_group) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $title, $first_name, $last_name, $nationality, $passport, $birth_date, $age_group);
-
-    if (!$stmt->execute()) {
-        die("Error inserting into passenger: " . $stmt->error); ///////////////////////////////////////////////////////////////
-    }
-    $stmt->close();
-
-    // إدخال البيانات في جدول user
-    $stmt = $conn->prepare("INSERT INTO user (passport, email, password, phone_number) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $passport, $email, $hashedPassword, $phone);
-
-    if ($stmt->execute()) {
-        echo "Sign Up successful!"; ////////////////////////////////////////////////////////////////////////////////////////
-        // هنا يمكن إعادة التوجيه لصفحة تسجيل الدخول
-        // header("Location: signIn.php");
-        // exit;
-    } else {
-        die("Error inserting into user: " . $stmt->error); /////////////////////////////////////////////////////////////////
-    }
-
-    $stmt->close();
-    $conn->close();
-}
-?>
-
-
-<html lang="en">
-<head>
-    <title>Sign Up</title>
-
-    <style>
-        body{background-color: #EBF5FF; margin: 0; padding: 0; height: 550px; text-align: center; font-family: serif;}
-        .signUp-background{ width: 1100px; height: 890px; overflow: visible; text-align: center; background-color:white; border-radius: 80px; box-shadow: 5px -5px 4px rgba(220, 235, 251, 0.50), -5px 5px 4px rgba(220, 235, 251, 1); padding: 0; margin: 60px auto; display:inline-block; padding-bottom: 60px;}
-        #p2t{color: black; font-size: 44px; margin: 50px 0; font-weight:600;}
-
-        .signUp-form input, .signUp-form select{width:400px; height:53px; border-radius: 10px; border: none; background-color:#EEEEEE; font-size:20px; font-weight:lighter; margin-bottom: 25px; text-align:left;}
-
-        .signUp-form select{padding-left: 15px; width:415px;}
-
-        input{padding-left: 15px;}
-
-        .signUp-form label{ font-size:20px; text-align:left; display: inline-block; margin:10px 30px;}
-
-        h3{color:#696969; font-size:18px; font-weight:normal; padding:0;}
-        #SignIn{color:#696969; font-size:18px; font-weight:normal;}
-
-        button, #SignIn-button{background-color: #1C75BC; width: 415px; height: 53px; color:white; font-size: 24px; font-weight: 500; padding-bottom: 5px; border-radius: 80px; border: none; margin-bottom:0; margin: 30px; font-family:serif;}
-        #back-button{background-color: #9F9F9F;}
-
-        span{color:red; font-family: serif;}
-
-        #SignIn-button{text-align: center;}
-
-        .error{color: red; font-size: 16px; padding: auto; margin: 0; font-style: italic; font-family: sans-serif;}
-
-
-    </style>
-
-</head>
-<body>
-
+<body id="SignUp-body">
+    <span class="dberror"><?= $_SESSION['SignUp_error'] ?? '' ?></span>
     <div class="signUp-background">
-        <h1 id="p2t">Sign Up</h1>
+        <h1 id="signUp-title">Sign Up</h1>
         <br>
-        <form class="signUp-form" method="POST" action="">
+        <form class="signUp-form" method="POST" action="SignUp-Proccess.php" onsubmit="return validateSignIn()">
         
-            <label><legend>First Name<span>*  </span><span class="error" id="vfname"></span></legend>
-                <input type="text" name="first-name"/>
+            <label class="signUp-label"><legend>First Name<span class="ast">*  </span><span class="errorCom" id="vfname"></span></legend>
+                <input class="signUp-input" type="text" name="first-name"/>
             </label>
         
-            <label><legend>Last Name<span>*  </span><span class="error" id="vlname"></span></legend>
-                <input type="text" name="last-name" />
+            <label class="signUp-label"><legend>Last Name<span class="ast">*  </span><span class="errorCom" id="vlname"></span></legend>
+                <input class="signUp-input" type="text" name="last-name" />
             </label>
         
-            <label><legend>Nationality<span>*  </span><span class="error" id="vnation"></span></legend>
-                <select name="nationality">
+            <label class="signUp-label"><legend>Nationality<span class="ast">*  </span><span class="errorCom" id="vnation"></span></legend>
+                <select class="signUp-select" name="nationality">
                     <option value="" disabled selected>Select Nationality</option>
                     <option value="Saudi Arabia">Saudi Arabia</option>
                     <option value="Brazilian">Brazilian</option>
                 </select>
             </label>
         
-            <label><legend>Passport Number<span>*  </span><span class="error" id="vpassportnum"></span></legend>
-                <input type="text" name="passport-number" placeholder="e.g. P12345678"/>
+            <label class="signUp-label"><legend>Passport Number<span class="ast">*  </span><span class="errorCom" id="vpassportnum"></span></legend>
+                <input class="signUp-input" type="text" name="passport-number" placeholder="e.g. P12345678"/>
             </label>
         
-            <label><legend>Phone Number<span>* </span><span class="error" id="phonenum"></span></legend>
-                <input type="text" name="phone-number" placeholder="+966 5XXXXXXXX"/>
+            <label class="signUp-label"><legend>Phone Number<span class="ast">* </span><span class="errorCom" id="phonenum"></span></legend>
+                <input class="signUp-input" type="text" name="phone-number" placeholder="+966 5XXXXXXXX"/>
             </label>
         
+            <label class="signUp-label"><legend>Email<span class="ast">* </span><span class="errorCom" id="vem"></span></legend>
+                <input class="signUp-input" id="email" type="email" name="email"/>
             </label>
         
-            <label><legend>Email<span>* </span><span class="error" id="vem"></span></legend>
-                <input id="email" type="email" name="email"/>
+            <label class="signUp-label"><legend>Birth Date<span class="ast">*  </span><span class="errorCom" id="vbirthDate"></span></legend>
+                <input class="signUp-input" type="date" name="birth-date"/>
             </label>
         
-            <label><legend>Birth Date<span>*  </span><span class="error" id="vbirthDate"></span></legend>
-                <input type="date" name="birth-date"/>
-            </label>
-        
-            <label><legend>Title  <span class="error" id="vtitle"></span></legend>
-                <select name="title">
+            <label class="signUp-label"><legend>Title  <span class="errorCom" id="vtitle"></span></legend>
+                <select class="signUp-select" name="title">
                     <option value="" disabled selected>Select Title</option>
                     <option value="Mr">Mr</option>
                     <option value="Mrs">Mrs</option>
@@ -184,19 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </label>
         
         
-            <label><legend>Password<span>*  </span><span class="error" id="vpass"></span></legend>
-                <input id="pass" type="password" name="password"/>
+            <label class="signUp-label"><legend>Password<span class="ast">*  </span><span class="errorCom" id="vpass"></span></legend>
+                <input class="signUp-input" id="pass" type="password" name="password"/>
             </label>
         
-            <label><legend>Confirm Password<span>*  </span><span class="error" id="vconpass"></span></legend>
-                <input id="conpass" type="password" name="confirm-password"/>
+            <label class="signUp-label"><legend>Confirm Password<span class="ast">*  </span><span class="errorCom" id="vconpass"></span></legend>
+                <input class="signUp-input" id="conpass" type="password" name="confirm-password"/>
             </label>
 
-            <a href="../home/home.php"><button type="button" id="back-button" name="back-button">Back</button></a>
-            <input type="submit" id="SignIn-button" value="Sign Up" onclick="return validateSignIn()"/> 
+            <a href="../home/home.php"><button type="button" id="signUp-back-button" name="back-button">Back</button></a>
+            <input type="submit" id="SignUp-button" value="Sign Up" /> 
             
         </form>
-
+        <?php
+            unset($_SESSION['SignUp_error']);
+        ?>
 
 
     </div>
@@ -373,8 +243,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 vpass.innerText = "(Required)";
                 valid = false;
             }
-            else if(pass.value.length < 8){
-                vpass.innerText = "(Password must be at least 8 characters)";
+            else if(pass.value.length !== 8){
+                vpass.innerText = "(Password must be 8 characters)";
                 pass.style.border = "2px solid red";
                 valid = false
 
@@ -391,10 +261,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             valid = false;
         }
 
-        if(valid){
-            document.querySelector('.signUp-form').submit();
-        }
-
         return valid;
                 
     }
@@ -402,5 +268,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
     
 </body>
-</html>
+
 <?php include('../footer/footer.php'); ?>

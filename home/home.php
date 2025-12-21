@@ -14,87 +14,8 @@ $title ="Home";
 include('../header/header.php'); 
 
 ?>
-
-<html lang="en">
 <head>
-<style>
-
-body{background-color: #EBF5FF; margin: 0; padding: 0; height: 1680px; text-align: center; font-family: serif;}
-.part1{position: relative; width: 100%; height: 700px; overflow: hidden; text-align: center; }
-.back{position: absolute; background-image:url("plain image.jpg"); width:100%; height:100%; margin: 0; padding: 0; filter: blur(2px); background-size: cover;  background-position: center; z-index: -1;}
-#t1{ color:white; font-size: 44px; font-weight: bold; text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.75);}
-.book{width: 437px; height: 347px; background-color:white; border-radius: 80px; text-align: center; overflow: hidden; padding: 0; box-shadow: 0px 3px 4px rgba(-2, 4, 4, 0.25);}
-.view{width: 437px; height: 347px; background-color:white; border-radius: 80px; text-align: center; overflow: hidden; padding: 0; box-shadow: 0px 3px 4px rgba(-2, 4, 4, 0.25);}
-#tbook, #tview {color: black; font-size: 36px; margin-top: 35px; font-weight: 500;}
-.button{background-color: #1C75BC; width: 142px; height: 40px; color:white; font-size: 24px; font-weight: 500; padding-bottom: 4px; border-radius: 80px; border: none; margin-bottom: 60px; font-family: serif;}
-.part1 p{color: #696969; font-size: 22px; margin: 20px 40px 50px; text-align:justify; display: inline-block;}
-
-#part2{ width: 1100px; height: 710px; overflow: visible; text-align: center; background-color:white; border-radius: 80px; box-shadow: 5px -5px 4px rgba(220, 235, 251, 0.50), -5px 5px 4px rgba(220, 235, 251, 1); padding: 0; margin: 100px auto; display:inline-block; padding-bottom: 60px;}
-#p2t{color: black; font-size: 44px; margin: 50px 0; font-weight:600;}
-
-.radio-label {margin: 0 40px; display: inline-flex; align-items: center; font-size: 26px; color: black; font-weight:400;}
-.radio-btn{transform: scale(1.5); margin-right: 10px;}
-
-.flight-form input, .flight-form select{width:400px; height:53px; border-radius: 10px; border: none; background-color:#EEEEEE; font-size:20px; font-weight:lighter; margin-bottom: 25px; text-align: center;}
-.flight-form label{ font-size:20px; text-align:left; display: inline-block; margin:10px 30px;}
-
-.flight-form #from{background-image: url('from.png'); background-position: 350px center; background-size: 24px 24px; background-repeat: no-repeat;}
-.flight-form #to{background-image: url('to.png'); background-position: 350px center; background-size: 24px 24px; background-repeat: no-repeat;}
-
-
-#Search-button{margin-left: 850px; margin-top: -60px;}
-
-span{color:red;font-family: sans-serif;}
-
-.error{color: red; font-size: 16px; padding: auto; margin: 0; font-style: italic;}
-
-.welcome-text {color: #1C75BC; font-size: 26px; font-weight: 600; text-align: center; margin-top: 20px;}
-
-.part1 {
-    position: relative;
-    width: 100%;
-    height: 700px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* محاذاة النصوص و الحاويات للوسط */
-    justify-content: center;
-}
-
-.back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("plain image.jpg");
-    background-size: cover;
-    background-position: center;
-    filter: blur(2px);
-    z-index: -1;
-}
-
-.boxes-container {
-    display: flex;
-    gap: 50px; /* المسافة بين الصناديق */
-    margin-top: 50px;
-}
-
-.book, .view {
-    width: 437px;
-    height: 347px;
-    background-color: white;
-    border-radius: 80px;
-    text-align: center;
-    padding: 0;
-    box-shadow: 0px 3px 4px rgba(0,0,0,0.25);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-
-</style>
+    <link rel="stylesheet" href="../style.css" type="text/css">
 <script>
     var vrd1 = document.getElementById("vrd1");
 
@@ -128,10 +49,8 @@ span{color:red;font-family: sans-serif;}
     }
 
 </script>
-
 </head>
-
-<body>
+<body id="home-body">
 
 
     <div class="part1">
@@ -142,13 +61,13 @@ span{color:red;font-family: sans-serif;}
             <div class="book">
                 <h1 id="tbook">Book</h1>
                 <p>Discover the best flight options and secure your seat with quick, reliable booking.</p>
-                <a href="#part2"><button class="button" name="book now">Book Now</button></a>
+                <button class="home-part1-buttons" name="book now"><a href="#part2">Book Now</a></button>
             </div>
 
             <div class="view">
                 <h1 id="tview">View</h1>
                 <p>Access your booked ticket details and review all the information for your upcoming trip in one place.</p>
-                <a href="#"><button class="button" name="view now">View Now</button></a>
+                <button class="home-part1-buttons" name="view now"><a href="#">View Now</a></button>
             </div>
         </div>
     </div>
@@ -159,23 +78,23 @@ span{color:red;font-family: sans-serif;}
 
     <div id="part2">
         
-        <h1 id="p2t">Book a Flight</h1>
+        <h1 id="home-part2-title">Book a Flight</h1>
 
         <form method="POST" action="">
         
-        <div class="radio-label">   
-            <label class="radio-label">
-                <input type="radio" class="radio-btn" name="flight-type" value="Round Trip" checked onclick="checkFlightType()"/>Round Trip
+        <div class="home-radio-label">   
+            <label class="home-radio-label">
+                <input type="radio" class="home-radio-btn" name="flight-type" value="Round Trip" checked onclick="checkFlightType()"/>Round Trip
             </label>
 
-            <label class="radio-label">
-                <input type="radio" class="radio-btn" name="flight-type" value="One Way" onclick="checkFlightType()"/>One Way
+            <label class="home-radio-label">
+                <input type="radio" class="home-radio-btn" name="flight-type" value="One Way" onclick="checkFlightType()"/>One Way
             </label>
             <br><br>
         </div> 
 
         <div class="flight-form">
-            <label><legend>From<span>*  </span><span class="error" id="vfrom"></span></legend>
+            <label><legend>From<span class="ast">*  </span><span class="errorCom" id="vfrom"></span></legend>
                 <select name="from" id="from">
                     <option value="" disabled selected>Select City</option>
                     <option value="sa">Saudi Arabia</option>
@@ -183,7 +102,7 @@ span{color:red;font-family: sans-serif;}
                 </select>
             </label>
 
-            <label><legend>To<span>*  </span><span class="error" id="vto"></span></legend>
+            <label><legend>To<span class="ast">*  </span><span class="errorCom" id="vto"></span></legend>
                 <select name="to" id="to">
                     <option value="" disabled selected>Select City</option>
                     <option value="sa">Saudi Arabia</option>
@@ -191,15 +110,15 @@ span{color:red;font-family: sans-serif;}
                 </select>
             </label>
 
-            <label><legend>Departing Date<span>*  </span><span class="error" id="vdd"></span></legend>
+            <label><legend>Departing Date<span class="ast">*  </span><span class="errorCom" id="vdd"></span></legend>
                 <input type="date" name="departingDate"/>
             </label>
 
-            <label><legend>Returning Date<span id="vrd1">* </span><span class="error" id="vrd2"></span></legend>
+            <label><legend>Returning Date<span id="vrd1">* </span><span class="errorCom" id="vrd2"></span></legend>
                 <input type="date" name="returningDate"/>
             </label>
 
-            <label><legend>Adult Passenger<span>*  </span><span class="error" id="vap"></span></legend>
+            <label><legend>Adult Passenger<span class="ast">*  </span><span class="errorCom" id="vap"></span></legend>
                 <input type="number" name="Adult-Passenger" min="1"/>
             </label>
 
@@ -211,7 +130,7 @@ span{color:red;font-family: sans-serif;}
                 <input type="number" name="Infants-Passenger" min="0"/>
             </label>
         </div>
-        <input type="submit" class="button" id="Search-button" name="Search" value="Search" onclick="return validateBook()" />
+        <input type="submit" id="Search-button" name="Search" value="Search" onclick="return validateBook()" />
 
     
 
@@ -243,7 +162,7 @@ span{color:red;font-family: sans-serif;}
 
     var AdPass = document.getElementsByName("Adult-Passenger")[0];
     var vap = document.getElementById("vap");
-           
+
 
     vfrom.innerHTML = "";
     vto.innerHTML = "";
@@ -313,8 +232,13 @@ var adultCount = parseInt(AdPass.value) || 0;
 var childCount = parseInt(childPass.value) || 0;
 var infantCount = parseInt(infantPass.value) || 0;
 
-
-if (adultCount === 0 && (childCount > 0 || infantCount > 0)) {
+//Adult Passenger
+if(AdPass.value === "" || AdPass.value === null ){
+    AdPass.style.border = "2px solid red";
+    vap.innerHTML = " (Required)";
+    valid = false;
+}
+else if (adultCount === 0 && (childCount > 0 || infantCount > 0)) {
     AdPass.style.border = "2px solid red";
     vap.innerHTML = " (Children can't travel without an adult)";
     valid = false;
@@ -326,9 +250,6 @@ return valid;
 }
 
 </script>
-
 </body>
-
-</html>
 
 <?php include('../footer/footer.php'); ?>

@@ -45,98 +45,265 @@ include('../header/header.php');
 ?>
 
 
-<html lang="en">
 <head>
-    <title>Profile</title>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+<head>
 
-    <style>
-        body{background-color: #EBF5FF; margin: 0; padding: 0; height: 550px; text-align: center; font-family: serif;}
-        .signUp-background{ width: 1100px; height: 890px; overflow: visible; text-align: center; background-color:white; border-radius: 80px; box-shadow: 5px -5px 4px rgba(220, 235, 251, 0.50), -5px 5px 4px rgba(220, 235, 251, 1); padding: 0; margin: 60px auto; display:inline-block; padding-bottom: 60px;}
-        #p2t{color: black; font-size: 44px; margin: 50px 0; font-weight:600;}
-
-        .signUp-form input, .signUp-form select{width:400px; height:53px; border-radius: 10px; border: none; background-color:#EEEEEE; font-size:20px; font-weight:lighter; margin-bottom: 25px; text-align:left;}
-
-        .signUp-form select{padding-left: 15px; width:415px;}
-
-        input{padding-left: 15px;}
-
-        .signUp-form label{ font-size:20px; text-align:left; display: inline-block; margin:10px 30px;}
-
-        h3{color:#696969; font-size:18px; font-weight:normal; padding:0;}
-        #SignIn{color:#696969; font-size:18px; font-weight:normal;}
-
-        button, #SignIn-button{background-color: #1C75BC; width: 415px; height: 53px; color:white; font-size: 24px; font-weight: 500; padding-bottom: 5px; border-radius: 80px; border: none; margin-bottom:0; margin: 30px; font-family:serif;}
-        #back-button{background-color: #9F9F9F;}
-
-        span{color:red; font-family: serif;}
-
-        #SignIn-button{text-align: center;}
-
-        .error{color: red; font-size: 16px; padding: auto; margin: 0; font-style: italic; font-family: sans-serif;}
-
-
-    </style>
-
-</head>
-<body>
-
-    <div class="signUp-background">
-        <h1 id="p2t">Update Profile</h1>
+<body id="update-body">
+    <span class="dberror"><?= $_SESSION['Update_error'] ?? '' ?></span>
+    <div class="update-background">
+        <h1 id="update-title">Update Profile</h1>
         <br>
-        <form class="signUp-form" method="POST" action="">
+        <form class="update-form" method="POST" action="update-proccess.php" onsubmit="return validateUpdate()">
         
-            <label><legend>First Name</legend>
-                <input type="text" value="<?= htmlspecialchars($user['first_name']) ?>"/>
+            <label class="update-label"><legend>First Name<span class="ast">*  </span><span class="errorCom" id="vfname"></span></legend>
+                <input class="update-input" type="text" name="first-name" value="<?= htmlspecialchars($user['first_name']) ?>"/>
             </label>
         
-            <label><legend>Last Name</legend>
-                <input type="text" value="<?= htmlspecialchars($user['last_name']) ?>"/>
+            <label class="update-label"><legend>Last Name<span class="ast">*  </span><span class="errorCom" id="vlname"></span></legend>
+                <input class="update-input" type="text" name="last-name" value="<?= htmlspecialchars($user['last_name']) ?>"/>
             </label>
         
-            <label><legend>Nationality</legend>
-                <input type="text" value="<?= htmlspecialchars($user['nationality']) ?>"/>
+            <label class="update-label"><legend>Nationality<span class="ast">*  </span><span class="errorCom" id="vnation"></span></legend>
+                <select class="update-select" name="nationality">
+                    <option value="Saudi Arabia"<?= ($user['nationality'] === 'Saudi Arabia') ? 'selected' : '' ?>>Saudi Arabia</option>
+                    <option value="Brazilian"<?= ($user['nationality'] === 'Brazilian') ? 'selected' : '' ?>>Brazilian</option>
+                </select>
             </label>
         
-            <label><legend>Passport Number</legend>
-                <input type="text" value="<?= htmlspecialchars($user['passport']) ?>"/>
+            <label class="update-label"><legend>Passport Number<span class="ast">*  </span><span class="errorCom" id="vpassportnum"></span></legend>
+                <input class="update-input" type="text" name="passport-number" value="<?= htmlspecialchars($user['passport']) ?>" placeholder="e.g. P12345678" />
             </label>
         
-            <label><legend>Phone Number</legend>
-                <input type="text" value="<?= htmlspecialchars($user['phone_number']) ?>"/>
+            <label class="update-label"><legend>Phone Number<span class="ast">*  </span><span class="errorCom" id="phonenum"></span></legend>
+                <input class="update-input" type="text" name="phone-number" value="<?= htmlspecialchars($user['phone_number']) ?>" placeholder="+966 5XXXXXXXX"/>
             </label>
         
+            <label class="update-label"><legend>Email<span class="ast">*  </span><span class="errorCom" id="vem"></span></legend>
+                <input class="update-input" tupe="email"  name="email" value="<?= htmlspecialchars($user['email']) ?>"/>
             </label>
         
-            <label><legend>Email</legend>
-                <input type="text" value="<?= htmlspecialchars($user['email']) ?>"/>
+            <label class="update-label"><legend>Birth Date<span class="ast">*  </span><span class="errorCom" id="vbirthDate"></span></legend>
+                <input class="update-input" type="date"  name="birth-date" value="<?= htmlspecialchars($user['birth_date']) ?>"/>
             </label>
         
-            <label><legend>Birth Date</legend>
-                <input type="date" value="<?= htmlspecialchars($user['birth_date']) ?>"/>
+            <label class="update-label"><legend>Title</legend>
+                <select class="update-input" name="title" value="<?= htmlspecialchars($user['title']) ?>">
+                    <option value="Mr"<?= ($user['nationality'] === 'Mr') ? 'selected' : '' ?>>Mr</option>
+                    <option value="Mrs"<?= ($user['nationality'] === 'Mrs') ? 'selected' : '' ?>>Mrs</option>
+                    <option value="Ms"<?= ($user['nationality'] === 'Ms') ? 'selected' : '' ?>>Ms</option>
+                </select>
             </label>
         
-            <label><legend>Title</legend>
-                <input type="text" value="<?= htmlspecialchars($user['title']) ?>"/>
+            <label class="update-label"><legend>Password<span class="ast">*  </span><span class="errorCom" id="vpass"></span></legend>
+                <input class="update-input" id="pass" type="password" name="password" placeholder="********"/>
             </label>
         
-        
-            <label><legend>Password</legend>
-                <input type="password" value="<?= htmlspecialchars($user['title']) ?>"/>
+            <label class="update-label"><legend>Confirm Password<span class="errorCom" id="vconpass"></span></legend>
+                <input class="update-input" id="conpass" type="password" name="confirm-password"/>
             </label>
         
-            <label style="visibility: hidden"><legend>Confirm Password</legend>
-                <input id="conpass" type="password" name="confirm-password"/>
-            </label>
-
-            <a href="../home/home.php"><button type="button" id="back-button" name="back-button">Back</button></a>
-            <input type="submit" id="SignIn-button" value="Confirm" onclick="return validateSignIn()"/>
+            <br>
+            <a href="../Profile/Profile.php"><button type="button" id="update-back-button" name="back-button">Back</button></a>
+            <input type="submit" id="update-button" value="Confirm"/> 
             
         </form>
 
 
-
     </div>
+        <script>
+        function validateUpdate(){
+
+            var valid = true;
+
+            var fname = document.getElementsByName("first-name")[0];
+            var vfname = document.getElementById("vfname");
+
+            var lname = document.getElementsByName("last-name")[0];
+            var vlname = document.getElementById("vlname");
+
+            var nation = document.getElementsByName("nationality")[0];
+            var vnation = document.getElementById("vnation");
+           
+            var passportnum = document.getElementsByName("passport-number")[0];
+            var vpassportnum = document.getElementById("vpassportnum");
+
+            var phonenum = document.getElementsByName("phone-number")[0];
+            var vphonenum = document.getElementById("phonenum");
+
+            var birth = document.getElementsByName("birth-date")[0];
+            var vbirth = document.getElementById("vbirthDate");
+
+            var em = document.getElementById("email")
+            var vem = document.getElementById("vem");
+
+            var pass = document.getElementById("pass");
+            var vpass = document.getElementById("vpass");
+            
+            var conpass = document.getElementById("conpass");
+            var vconpass = document.getElementById("vconpass");
+
+
+            vfname.innerHTML="";
+            vlname.innerHTML="";
+            vem.innerHTML = "";
+            vpass.innerHTML = "";
+            vnation.innerHTML = "";
+            vpassportnum.innerHTML = "";
+            vphonenum.innerHTML = "";
+            vbirth.innerHTML = "";
+            vconpass.innerHTML = "";
+
+            fname.style.border ="none";
+            lname.style.border ="none";
+            em.style.border = "none"; 
+            pass.style.border = "none"; 
+            nation.style.border = "none";
+            pass.style.border = "none";
+            phonenum.style.border = "none";
+            birth.style.border = "none";
+            conpass.style.border = "none"
+
+
+        //First Name validation
+            if(fname.value.trim() === ""){
+                fname.style.border = "2px solid red";
+                vfname.innerHTML = "(Required)";
+                valid = false;  
+            }
+            else{
+                nameRegex = /^[A-Za-zأ-يءئؤإآة\s]+$/;
+                if(!nameRegex.test(fname.value.trim())){
+                    fname.style.border = "2px solid red";
+                    vfname.innerText = "(Please enter a valid name)";
+                    valid = false;
+                }
+            }
+
+
+        //Last Name validation
+            if(lname.value.trim() === ""){
+                lname.style.border = "2px solid red";
+                vlname.innerHTML = "(Required)"
+                valid = false;  
+            }
+            else{
+                nameRegex = /^[A-Za-zأ-يءئؤإآة\s]+$/;
+                if(!nameRegex.test(lname.value.trim())){
+                    lname.style.border = "2px solid red";
+                    vlname.innerText = "(Please enter a valid name)";
+                    valid = false;
+                }
+            }
+
+
+        //NATIONALITY VALIDATION
+            if(nation.value === ""){
+                nation.style.border = "2px solid red";
+                vnation.innerHTML = "(Required)";
+            }
+
+        //PASSPORT NUMBER VALIDATION
+        if(passportnum.value.trim() === ""){
+            passportnum.style.border = "2px solid red";
+            vpassportnum.innerHTML = "(Required)";
+            valid = false;
+        }
+        else{
+            passRegex = /^[A-Za-z][0-9]{8}$/;
+            if(!passRegex.test(passportnum.value.trim())) {
+                passportnum.style.border = "2px solid red";
+                vpassportnum.innerHTML = "(Invalid Passport format)";
+                valid = false;
+            }
+        }
+
+        //PHONE VALIDATION
+         if (phonenum.value.trim() === "") {
+            phonenum.style.border = "2px solid red";
+            vphonenum.innerHTML = "(Required)";
+            valid = false;
+        } 
+        else {
+            saPhoneRegex = /^5[0-9]{8}$/;
+
+            if (!saPhoneRegex.test(phonenum.value.trim())) {
+                phonenum.style.border = "2px solid red";
+                vphonenum.innerHTML = "(Enter a valid Saudi number)";
+                valid = false;
+            }
+        }
+
+
+        //Birth date
+        var today = new Date(); 
+        var minAge = new Date();
+        minAge.setFullYear(today.getFullYear() - 18); // must be 18+
+
+        var birthDate = new Date(birth.value);
+
     
-</body>
-</html>
+        if (birth.value === "") {
+            birth.style.border = "2px solid red";
+            vbirth.innerHTML = "(Required)";
+            valid = false;
+        }
+        else if (birthDate > today) {
+            birth.style.border = "2px solid red";
+            vbirth.innerHTML = "(Birth date cannot be in the future)";
+            valid = false;
+        }
+        else if (birthDate > minAge) {
+            birth.style.border = "2px solid red";
+            vbirth.innerHTML = "(You must be at least 18 years old)";
+            valid = false;
+        }
+
+
+        //Email validation
+            if(em.value.trim() === ""){
+                em.style.border = "2px solid red";
+                vem.innerText = "(Required)";
+                valid = false;
+            }
+            else{
+                regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!regex.test(em.value.trim())) {
+                    vem.innerText = "(Please Enter valid email)";
+                    em.style.border = "2px solid red";
+                    valid = false; 
+                }
+            }
+            
+
+        //Password
+            /*if(pass.value.trim() === ""){
+                pass.style.border = "2px solid red";
+                vpass.innerText = "(Required)";
+                valid = false;
+            }
+            else */ if(pass.value.length !== 8){
+                vpass.innerText = "(Password must be 8 characters)";
+                pass.style.border = "2px solid red";
+                valid = false
+
+            }
+
+        //Confirm Password
+        /*if (conpass.value.trim() === "") {
+            conpass.style.border = "2px solid red";
+            vconpass.innerHTML = "(Required)";
+            valid = false;
+        } else */ if (conpass.value !== pass.value) {
+            conpass.style.border = "2px solid red";
+            vconpass.innerHTML = "(Passwords do not match)";
+            valid = false;
+        }
+
+        return valid;
+                
+    }
+    
+    </script>
+<body>
 <?php include('../footer/footer.php'); ?>
