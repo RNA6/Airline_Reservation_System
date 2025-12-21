@@ -2,6 +2,19 @@
 
 session_start();
 
+require_once "../flygo_system_sqldb/db.php";
+
+$cities = [];
+
+$sql = "SELECT name, short_name FROM cities ORDER BY name";
+$result = $conn->query($sql);
+
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $cities[] = $row;
+    }
+}
+
 if (isset($_SESSION['welcome'])): ?>
     <p class="welcome-text">
         <?= htmlspecialchars($_SESSION['welcome']) ?>
@@ -97,16 +110,26 @@ include('../header/header.php');
             <label><legend>From<span class="ast">*  </span><span class="errorCom" id="vfrom"></span></legend>
                 <select name="from" id="from">
                     <option value="" disabled selected>Select City</option>
-                    <option value="sa">Saudi Arabia</option>
-                    <option value="ua">United Arab Emirates</option>
+                    <!-- <option value="sa">Saudi Arabia</option>
+                    <option value="ua">United Arab Emirates</option> -->
+                    <?php foreach ($cities as $city): ?>
+                        <option value="<?= htmlspecialchars($city['short_name']) ?>">
+                    <?= htmlspecialchars($city['name']) ?>
+                    </option>
+        <?php endforeach; ?>
                 </select>
             </label>
 
             <label><legend>To<span class="ast">*  </span><span class="errorCom" id="vto"></span></legend>
                 <select name="to" id="to">
                     <option value="" disabled selected>Select City</option>
-                    <option value="sa">Saudi Arabia</option>
-                    <option value="ua">United Arab Emirates</option>
+                    <!-- <option value="sa">Saudi Arabia</option>
+                    <option value="ua">United Arab Emirates</option> -->
+                    <?php foreach ($cities as $city): ?>
+                        <option value="<?= htmlspecialchars($city['short_name']) ?>">
+                    <?= htmlspecialchars($city['name']) ?>
+                    </option>
+        <?php endforeach; ?>
                 </select>
             </label>
 
@@ -190,6 +213,11 @@ include('../header/header.php');
         vto.innerHTML = "  (Required)";
         valid = false;
     }
+    if(from.value !== "" && to.value !== "" && from.value === to.value){
+    to.style.border = "2px solid red";
+    vto.innerHTML = " (Destination cannot be the same as departure)";
+    valid = false;
+}
 
     // Departing Date validation
 var today = new Date();

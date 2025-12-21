@@ -786,14 +786,14 @@ a{
     .header-menu li.on a{background-color: #1C75BC; border-radius: 80px; color:white;}
     #htext, #logIn{color:#1C75BC; font-size:18px; font-weight:normal; display: inline;}
     #user-img{width:47px; height: 47px;}
-    .user-picture, div{margin: 0; padding: 0; display: inline-block; vertical-align: middle;}
+    .user-picture{margin: 0; padding: 0; display: inline-block; vertical-align: middle;}
     #htext{margin-right: 5px;}
     .user-menu-container {position: relative; display: inline-block;}
     .user-icon {width: 45px; height: 45px; border-radius: 50%; cursor: pointer;}
     .user-dropdown {position: absolute; right: 0; background: white; padding: 10px 0; width: 160px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.15); display: none; text-align: left; z-index: 999;}
     .user-dropdown a {display: block; padding: 10px 15px; color: black; text-decoration: none; font-size: 18px;}
     .user-dropdown a:hover {background-color: #F1F1F1;}
-    .header-text-img{position: absolute; right:10px; vertical-align: middle; top:15px; bottom: 15px;}
+    .header-text-img{position: absolute; right:10px; vertical-align: middle; top:15px; bottom: 15px; margin: 0; padding: 0; display: inline-block;}
         
 /*/////////////////////////////////////////// Sign Up Page /////////////////////////////////////////////////*/             
     #SignUp-body{

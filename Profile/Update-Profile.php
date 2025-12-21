@@ -66,8 +66,10 @@ include('../header/header.php');
         
             <label class="update-label"><legend>Nationality<span class="ast">*  </span><span class="errorCom" id="vnation"></span></legend>
                 <select class="update-select" name="nationality">
-                    <option value="Saudi Arabia"<?= ($user['nationality'] === 'Saudi Arabia') ? 'selected' : '' ?>>Saudi Arabia</option>
-                    <option value="Brazilian"<?= ($user['nationality'] === 'Brazilian') ? 'selected' : '' ?>>Brazilian</option>
+                    <option value="Saudi Arabian"<?= ($user['nationality'] === 'Saudi Arabian') ? 'selected' : '' ?>>Saudi Arabian</option>
+                    <option value="United Arab Emirates"<?= ($user['nationality'] === 'United Arab Emirates') ? 'selected' : '' ?>>United Arab Emirates</option>
+                    <option value="Bahraini"<?= ($user['nationality'] === 'Bahraini') ? 'selected' : '' ?>>Bahraini</option>
+                    <option value="Kuwaiti"<?= ($user['nationality'] === 'Kuwaiti') ? 'selected' : '' ?>>Kuwaiti</option>
                 </select>
             </label>
         
@@ -89,9 +91,9 @@ include('../header/header.php');
         
             <label class="update-label"><legend>Title</legend>
                 <select class="update-input" name="title" value="<?= htmlspecialchars($user['title']) ?>">
-                    <option value="Mr"<?= ($user['nationality'] === 'Mr') ? 'selected' : '' ?>>Mr</option>
-                    <option value="Mrs"<?= ($user['nationality'] === 'Mrs') ? 'selected' : '' ?>>Mrs</option>
-                    <option value="Ms"<?= ($user['nationality'] === 'Ms') ? 'selected' : '' ?>>Ms</option>
+                    <option value="Mr"<?= ($user['title'] === 'Mr') ? 'selected' : '' ?>>Mr</option>
+                    <option value="Mrs"<?= ($user['title'] === 'Mrs') ? 'selected' : '' ?>>Mrs</option>
+                    <option value="Ms"<?= ($user['title'] === 'Ms') ? 'selected' : '' ?>>Ms</option>
                 </select>
             </label>
         
