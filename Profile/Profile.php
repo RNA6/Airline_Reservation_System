@@ -41,7 +41,7 @@ $user = $result->fetch_assoc();
 $stmt->close();
 
 
-include('../header/header.php');
+include('../header/head.php');
 
 if (isset($_SESSION['Profile_success'])): ?>
 <script>
@@ -49,14 +49,8 @@ if (isset($_SESSION['Profile_success'])): ?>
 </script>
 <?php unset($_SESSION['Profile_success']); endif; ?>
 
-
-
-
-<head>
-        <link rel="stylesheet" href="../style.css" type="text/css">
-<head>
-
 <body id="profile-body">
+    <?php include('../header/header.php');?>
     <div class="profile-background">
         <h1 id="profile-title">Profile</h1>
         <br>
@@ -107,5 +101,4 @@ if (isset($_SESSION['Profile_success'])): ?>
 
 
     </div>
-<body>
 <?php include('../footer/footer.php'); ?>

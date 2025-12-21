@@ -1,9 +1,10 @@
 <?php 
 session_start();
 $title ="Sign Up";
-include('../header/header.php'); ?>
+include('../header/head.php'); ?>
 
 <body id="SignUp-body">
+    <?php include('../header/header.php');?>
     <span class="dberror"><?= $_SESSION['SignUp_error'] ?? '' ?></span>
     <div class="signUp-background">
         <h1 id="signUp-title">Sign Up</h1>
@@ -266,7 +267,5 @@ include('../header/header.php'); ?>
     }
     
     </script>
-    
-</body>
 
 <?php include('../footer/footer.php'); ?>
