@@ -32,7 +32,7 @@
                         $meal = 'Chicken Pasta';
                         include("meal-item.php");
 
-                        $id = 'vegan-pasta';
+                        $id = 'vegan_pasta';
                         $meal = 'Vegan Pasta';
                         include("meal-item.php");
 

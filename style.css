@@ -72,6 +72,12 @@ a{
     margin-bottom: 5px;
 }
 
+.common-text.error-text{
+    display: none;
+    margin-bottom: 20px;
+    color: red;
+}
+
 .passenger-title{
     width: 100px;
     padding: 5px;
@@ -129,6 +135,25 @@ a{
     justify-content:center;
 }
 
+.tickets input[type='radio']{
+    display: inline-block;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.tickets input[type='radio']:checked  + .ticket-card.flights {
+    background-color: #ebebeb;
+    border: 2px solid #333;
+}
+
+.tickets input[type='radio']:checked  + .ticket-card.flights .flight-route .path .fa-plane{
+    background-color: #ebebeb;
+}
 /*select seats*/
 
 .plane{
@@ -156,7 +181,14 @@ a{
 }
 
 .plane .inputs[type=checkbox] {
-    display: none;
+    display: inline-block;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 .seats-lable{
@@ -312,7 +344,14 @@ a{
 }
 
 .meal-list input[type='radio'] {
-    display: none;
+    display: inline-block;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 .meal-option{
@@ -786,7 +825,7 @@ a{
     .header-menu li.on a{background-color: #1C75BC; border-radius: 80px; color:white;}
     #htext, #logIn{color:#1C75BC; font-size:18px; font-weight:normal; display: inline;}
     #user-img{width:47px; height: 47px;}
-    .user-picture, div{margin: 0; padding: 0; display: inline-block; vertical-align: middle;}
+    .user-picture div{margin: 0; padding: 0; display: inline-block; vertical-align: middle;}
     #htext{margin-right: 5px;}
     .user-menu-container {position: relative; display: inline-block;}
     .user-icon {width: 45px; height: 45px; border-radius: 50%; cursor: pointer;}

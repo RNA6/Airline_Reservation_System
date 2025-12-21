@@ -1,10 +1,10 @@
 <?php 
 session_start();
 $title ="Sign In";
-include('../header/header.php'); ?>
-
+include('../header/head.php'); ?>
+</head>
 <body id="signIn-body">
-
+    <?php include('../header/header.php');?>
     <div class="signIn-background">
     <h1 id="signIn-title">Sign In</h1>
 

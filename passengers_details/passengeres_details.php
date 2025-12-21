@@ -1,3 +1,16 @@
+<?php 
+    session_start();
+    if(isset($_POST['ticket'])){
+        $arrival_number = $_POST['ticket'];        
+        $_SESSION['booking']['arrival_flight_number'] = $arrival_number;
+    }
+
+    
+    if (isset($_SESSION['welcome'])){
+        //Get user info
+    }
+    //if signed in put information directly
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,37 +23,40 @@
     <body>
         <main class="common-container">
         
-        <h2 class="head-title">Passengeres Details</h2>
+            <h2 class="head-title">Passengeres Details</h2>
+            <form name="passenger-details-form" method="POST" action="../passengers_seats/select_seats.php">
+                <?php 
+                    for($adult=1; $adult <= $_SESSION['booking']['adults_number'] ; $adult++){
+                        include("passenger.php");
+                    }
+                    for($child=1; $child <= $_SESSION['booking']['children_number']; $child++){
+                        include("passenger.php");
+                    }
+                    for($infant=1; $infant <= $_SESSION['booking']['infants_number']; $infant++){
+                        include("passenger.php");
+                    }
+                ?>
+                <span class="common-text" style="font-size: 1.5rem;">Contact Details</span>
+                <div class="details-container contact-details">
+                    <fieldset class="inputs-fieldset">
+                        <legend class="common-text">Phone Number</legend>
+                        <input class="inputs" type="text" placeholder="Enter ourPhone Number"/>
+                        <span class="fa-solid fa-phone"></span>
+                    </fieldset>
+                    
+                    <fieldset class="inputs-fieldset email">
+                        <legend class="common-text">Email</legend>
+                        <input class="inputs" type="email" placeholder="Enter Email Address"/>
+                        <span class="fa-regular fa-envelope"></span>
+                    </fieldset>
+                </div>
 
-        <?php include("passenger.php");?>
-        <?php include("passenger.php");?>
-
-        <span class="common-text" style="font-size: 1.5rem;">Contact Details</span>
-        <div class="details-container contact-details">
-            <form name="passenger-details-form">                
-                <fieldset class="inputs-fieldset">
-                    <legend class="common-text">Phone Number</legend>
-                    <input class="inputs" type="text" placeholder="Enter ourPhone Number"/>
-                    <span class="fa-solid fa-phone"></span>
-                </fieldset>
-                
-                <fieldset class="inputs-fieldset email">
-                    <legend class="common-text">Email</legend>
-                    <input class="inputs" type="email" placeholder="Enter Email Address"/>
-                    <span class="fa-regular fa-envelope"></span>
-                </fieldset>
+                <div class="action-area passengers">
+                    <a href="../flights/flight_departures.php"  style="margin-right: 20px" class="btn-gray-outline">Edit Search</a>
+                    
+                    <button type="sumbit" class="btn-blue-outline">Continue</button>
+                </div>
             </form>
-        </div>
-
-        <div class="action-area passengers">
-            <a href="../tickets/flight_departures.php"  style="margin-right: 20px">
-                <button class="btn-gray-outline">Edit Search</button>
-            </a>
-            <a href="../passengers_seats/select_seats.php" >
-            <button class="btn-blue-outline" onclick="<?php $previous_page = 'passengers-details.php'?>">Continue</button>
-            </a>
-        </div>
-
-    </main>
+        </main>
     </body>
 </html>
