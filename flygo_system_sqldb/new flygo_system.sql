@@ -2,9 +2,9 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 19 ديسمبر 2025 الساعة 20:37
--- إصدار الخادم: 10.4.32-MariaDB
+-- Host: 127.0.0.1:3307
+-- Generation Time: Dec 20, 2025 at 12:31 PM
+-- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- بنية الجدول `cities`
+-- Table structure for table `cities`
 --
 
 CREATE TABLE `cities` (
@@ -32,10 +32,20 @@ CREATE TABLE `cities` (
   `short_name` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cities`
+--
+
+INSERT INTO `cities` (`name`, `short_name`) VALUES
+('Dammam', 'DMM'),
+('Jeddah', 'JED'),
+('Madinah', 'MED'),
+('Riyadh', 'RUH');
+
 -- --------------------------------------------------------
 
 --
--- بنية الجدول `credit_card`
+-- Table structure for table `credit_card`
 --
 
 CREATE TABLE `credit_card` (
@@ -50,11 +60,11 @@ CREATE TABLE `credit_card` (
 -- --------------------------------------------------------
 
 --
--- بنية الجدول `extra`
+-- Table structure for table `extra`
 --
 
 CREATE TABLE `extra` (
-  `ticket_number` varchar(10) NOT NULL,
+  `ticket_number` int(10) UNSIGNED NOT NULL,
   `passport` varchar(10) NOT NULL,
   `seat` varchar(4) NOT NULL,
   `small_bags` int(11) NOT NULL,
@@ -66,25 +76,67 @@ CREATE TABLE `extra` (
 -- --------------------------------------------------------
 
 --
--- بنية الجدول `flight`
+-- Table structure for table `flights`
 --
 
-CREATE TABLE `flight` (
+CREATE TABLE `flights` (
   `flight_number` varchar(8) NOT NULL,
   `origin` varchar(8) NOT NULL,
-  `destenation` varchar(8) NOT NULL,
+  `destination` varchar(8) NOT NULL,
   `departure_time` datetime NOT NULL,
   `arrival_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `flights`
+--
+
+INSERT INTO `flights` (`flight_number`, `origin`, `destination`, `departure_time`, `arrival_time`) VALUES
+('10000001', 'RUH', 'JED', '2025-02-01 06:00:00', '2025-02-01 08:00:00'),
+('10000002', 'RUH', 'JED', '2025-02-01 12:00:00', '2025-02-01 14:00:00'),
+('10000003', 'RUH', 'JED', '2025-02-01 18:00:00', '2025-02-01 20:00:00'),
+('10000004', 'RUH', 'DMM', '2025-02-01 07:00:00', '2025-02-01 08:15:00'),
+('10000005', 'RUH', 'DMM', '2025-02-01 13:00:00', '2025-02-01 14:15:00'),
+('10000006', 'RUH', 'DMM', '2025-02-01 19:00:00', '2025-02-01 20:15:00'),
+('10000007', 'RUH', 'MED', '2025-02-01 06:30:00', '2025-02-01 08:00:00'),
+('10000008', 'RUH', 'MED', '2025-02-01 12:30:00', '2025-02-01 14:00:00'),
+('10000009', 'RUH', 'MED', '2025-02-01 18:30:00', '2025-02-01 20:00:00'),
+('10000010', 'JED', 'RUH', '2025-02-01 06:00:00', '2025-02-01 08:00:00'),
+('10000011', 'JED', 'RUH', '2025-02-01 12:00:00', '2025-02-01 14:00:00'),
+('10000012', 'JED', 'RUH', '2025-02-01 18:00:00', '2025-02-01 20:00:00'),
+('10000013', 'JED', 'DMM', '2025-02-01 07:30:00', '2025-02-01 09:45:00'),
+('10000014', 'JED', 'DMM', '2025-02-01 13:30:00', '2025-02-01 15:45:00'),
+('10000015', 'JED', 'DMM', '2025-02-01 19:30:00', '2025-02-01 21:45:00'),
+('10000016', 'JED', 'MED', '2025-02-01 08:00:00', '2025-02-01 09:15:00'),
+('10000017', 'JED', 'MED', '2025-02-01 14:00:00', '2025-02-01 15:15:00'),
+('10000018', 'JED', 'MED', '2025-02-01 20:00:00', '2025-02-01 21:15:00'),
+('10000019', 'DMM', 'RUH', '2025-02-01 06:15:00', '2025-02-01 07:30:00'),
+('10000020', 'DMM', 'RUH', '2025-02-01 12:15:00', '2025-02-01 13:30:00'),
+('10000021', 'DMM', 'RUH', '2025-02-01 18:15:00', '2025-02-01 19:30:00'),
+('10000022', 'DMM', 'JED', '2025-02-01 07:00:00', '2025-02-01 09:15:00'),
+('10000023', 'DMM', 'JED', '2025-02-01 13:00:00', '2025-02-01 15:15:00'),
+('10000024', 'DMM', 'JED', '2025-02-01 19:00:00', '2025-02-01 21:15:00'),
+('10000025', 'DMM', 'MED', '2025-02-01 08:30:00', '2025-02-01 10:30:00'),
+('10000026', 'DMM', 'MED', '2025-02-01 14:30:00', '2025-02-01 16:30:00'),
+('10000027', 'DMM', 'MED', '2025-02-01 20:30:00', '2025-02-01 22:30:00'),
+('10000028', 'MED', 'RUH', '2025-02-01 06:45:00', '2025-02-01 08:15:00'),
+('10000029', 'MED', 'RUH', '2025-02-01 12:45:00', '2025-02-01 14:15:00'),
+('10000030', 'MED', 'RUH', '2025-02-01 18:45:00', '2025-02-01 20:15:00'),
+('10000031', 'MED', 'JED', '2025-02-01 07:00:00', '2025-02-01 08:15:00'),
+('10000032', 'MED', 'JED', '2025-02-01 13:00:00', '2025-02-01 14:15:00'),
+('10000033', 'MED', 'JED', '2025-02-01 19:00:00', '2025-02-01 20:15:00'),
+('10000034', 'MED', 'DMM', '2025-02-01 08:00:00', '2025-02-01 10:00:00'),
+('10000035', 'MED', 'DMM', '2025-02-01 14:00:00', '2025-02-01 16:00:00'),
+('10000036', 'MED', 'DMM', '2025-02-01 20:00:00', '2025-02-01 22:00:00');
+
 -- --------------------------------------------------------
 
 --
--- بنية الجدول `passenger`
+-- Table structure for table `passenger`
 --
 
 CREATE TABLE `passenger` (
-  `title` varchar(8) DEFAULT NULL,
+  `title` varchar(8) NOT NULL,
   `first_name` varchar(24) NOT NULL,
   `last_name` varchar(32) NOT NULL,
   `nationality` varchar(10) NOT NULL,
@@ -96,22 +148,22 @@ CREATE TABLE `passenger` (
 -- --------------------------------------------------------
 
 --
--- بنية الجدول `ticket`
+-- Table structure for table `ticket`
 --
 
 CREATE TABLE `ticket` (
-  `ticket_number` varchar(10) NOT NULL,
-  `flight_number` varchar(8) NOT NULL,
-  `class` varchar(16) NOT NULL,
-  `adult_number` int(11) NOT NULL DEFAULT 1,
-  `children_number` int(11) NOT NULL,
-  `infants_number` int(11) NOT NULL
+  `ticket_number` int(10) UNSIGNED NOT NULL,
+  `flight_number` varchar(8) DEFAULT NULL,
+  `class` varchar(16) DEFAULT NULL,
+  `adults_number` int(11) DEFAULT 1,
+  `children_number` int(11) DEFAULT NULL,
+  `infants_number` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- بنية الجدول `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -145,15 +197,16 @@ ALTER TABLE `credit_card`
 --
 ALTER TABLE `extra`
   ADD PRIMARY KEY (`ticket_number`,`passport`),
-  ADD KEY `extras_foreign_key` (`passport`);
+  ADD KEY `ticket_number` (`ticket_number`),
+  ADD KEY `passport` (`passport`);
 
 --
--- Indexes for table `flight`
+-- Indexes for table `flights`
 --
-ALTER TABLE `flight`
+ALTER TABLE `flights`
   ADD PRIMARY KEY (`flight_number`),
   ADD KEY `foreign_key` (`origin`),
-  ADD KEY `foreign_key2` (`destenation`);
+  ADD KEY `foreign_key2` (`destination`);
 
 --
 -- Indexes for table `passenger`
@@ -178,37 +231,47 @@ ALTER TABLE `user`
   ADD KEY `passport` (`passport`);
 
 --
--- قيود الجداول المُلقاة.
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- قيود الجداول `credit_card`
+-- AUTO_INCREMENT for table `ticket`
+--
+ALTER TABLE `ticket`
+  MODIFY `ticket_number` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `credit_card`
 --
 ALTER TABLE `credit_card`
   ADD CONSTRAINT `credit_card_foreign_key` FOREIGN KEY (`passport`) REFERENCES `passenger` (`passport`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `extra`
+-- Constraints for table `extra`
 --
 ALTER TABLE `extra`
-  ADD CONSTRAINT `extras2_foreign_key` FOREIGN KEY (`ticket_number`) REFERENCES `ticket` (`ticket_number`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `extras_foreign_key` FOREIGN KEY (`passport`) REFERENCES `flight` (`flight_number`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_extra_passport` FOREIGN KEY (`passport`) REFERENCES `passenger` (`passport`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_extra_ticket` FOREIGN KEY (`ticket_number`) REFERENCES `ticket` (`ticket_number`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `flight`
+-- Constraints for table `flights`
 --
-ALTER TABLE `flight`
+ALTER TABLE `flights`
   ADD CONSTRAINT `foreign_key` FOREIGN KEY (`origin`) REFERENCES `cities` (`short_name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `foreign_key2` FOREIGN KEY (`destenation`) REFERENCES `cities` (`short_name`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `foreign_key2` FOREIGN KEY (`destination`) REFERENCES `cities` (`short_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `ticket`
+-- Constraints for table `ticket`
 --
 ALTER TABLE `ticket`
-  ADD CONSTRAINT `Foregin_Key` FOREIGN KEY (`flight_number`) REFERENCES `flight` (`flight_number`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Foregin_Key` FOREIGN KEY (`flight_number`) REFERENCES `flights` (`flight_number`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `user`
+-- Constraints for table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `Foreign key` FOREIGN KEY (`passport`) REFERENCES `passenger` (`passport`) ON DELETE CASCADE ON UPDATE CASCADE;
