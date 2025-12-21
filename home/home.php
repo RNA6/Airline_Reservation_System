@@ -24,11 +24,9 @@ if (isset($_SESSION['welcome'])): ?>
 <?php
 
 $title ="Home";
-include('../header/header.php'); 
+include('../header/head.php'); 
 
 ?>
-<head>
-    <link rel="stylesheet" href="../style.css" type="text/css">
 <script>
     var vrd1 = document.getElementById("vrd1");
 
@@ -63,8 +61,9 @@ include('../header/header.php');
 
 </script>
 </head>
-<body id="home-body">
 
+<body id="home-body">
+    <?php include('../header/header.php');?> 
 
     <div class="part1">
         <div class="back"></div>
@@ -278,6 +277,6 @@ return valid;
 }
 
 </script>
-</body>
 
 <?php include('../footer/footer.php'); ?>
+
