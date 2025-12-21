@@ -825,11 +825,9 @@ a{
     .header-menu li.on a{background-color: #1C75BC; border-radius: 80px; color:white;}
     #htext, #logIn{color:#1C75BC; font-size:18px; font-weight:normal; display: inline;}
     #user-img{width:47px; height: 47px;}
-<<<<<<< HEAD
     .user-picture{margin: 0; padding: 0; display: inline-block; vertical-align: middle;}
-=======
-    .user-picture div{margin: 0; padding: 0; display: inline-block; vertical-align: middle;}
->>>>>>> main
+
+
     #htext{margin-right: 5px;}
     .user-menu-container {position: relative; display: inline-block;}
     .user-icon {width: 45px; height: 45px; border-radius: 50%; cursor: pointer;}
