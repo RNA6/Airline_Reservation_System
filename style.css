@@ -1265,13 +1265,13 @@ a{
 }
 
 .flight-form #from{
-    background-image: url('from.png'); 
+    background-image: url('home/from.png'); 
     background-position: 350px center; 
     background-size: 24px 24px; 
     background-repeat: no-repeat;
 }
 .flight-form #to{
-    background-image: url('to.png'); 
+    background-image: url('home/to.png'); 
     background-position: 350px center; 
     background-size: 24px 24px; 
     background-repeat: no-repeat;

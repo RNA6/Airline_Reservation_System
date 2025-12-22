@@ -27,7 +27,7 @@ include('../header/head.php'); ?>
             <h3 id="SignIn-h3">Don't have an account? <a id="SignIn-link" href="../SignUp-Page/SignUp-Page.php">Sign Up</a></h3>
 
             <input type="button" id="SignIn-button" value="Sign In" onclick=" return validateSignIn()">
-            <button type="button" id="signIn-back-button" name="back-button"><a href="../home/home.php">Back</a></button>
+            <button type="button" id="signIn-back-button" name="back-button" onclick="window.history.back()">Back</button>
         </form>
 
         <?php
@@ -68,9 +68,7 @@ include('../header/head.php'); ?>
                     valid = false; 
                 }
             }
-            
 
-            
             if(pass.value.trim() === ""){
                 pass.style.border = "2px solid red";
                 vpass.innerText = "This is Required"
@@ -87,11 +85,8 @@ include('../header/head.php'); ?>
             document.querySelector('.signIn-form').submit();
             }
 
-            return valid;
-                
+            return valid;                
         }
     </script>
-    
-</body>
 
 <?php include('../footer/footer.php'); ?>
