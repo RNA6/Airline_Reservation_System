@@ -2,6 +2,19 @@
 
 session_start();
 
+require_once "../flygo_system_sqldb/db.php";
+
+$cities = [];
+
+$sql = "SELECT name, short_name FROM cities ORDER BY name";
+$result = $conn->query($sql);
+
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $cities[] = $row;
+    }
+}
+
 if (isset($_SESSION['welcome'])): ?>
     <p class="welcome-text">
         <?= htmlspecialchars($_SESSION['welcome']) ?>
@@ -66,7 +79,7 @@ include('../header/head.php');
             <div class="view">
                 <h1 id="tview">View</h1>
                 <p>Access your booked ticket details and review all the information for your upcoming trip in one place.</p>
-                <button class="home-part1-buttons" name="view now"><a href="#">View Now</a></button>
+                <button class="home-part1-buttons" name="view now"><a href="../manage.html">View Now</a></button>
             </div>
         </div>
     </div>
@@ -79,7 +92,7 @@ include('../header/head.php');
         
         <h1 id="home-part2-title">Book a Flight</h1>
 
-        <form method="POST" action="">
+        <form method="POST" action="FlightDeparture.php" onsubmit="return validateBook()">
         
         <div class="home-radio-label">   
             <label class="home-radio-label">
@@ -96,16 +109,22 @@ include('../header/head.php');
             <label><legend>From<span class="ast">*  </span><span class="errorCom" id="vfrom"></span></legend>
                 <select name="from" id="from">
                     <option value="" disabled selected>Select City</option>
-                    <option value="sa">Saudi Arabia</option>
-                    <option value="ua">United Arab Emirates</option>
+                    <?php foreach ($cities as $city): ?>
+                        <option value="<?= htmlspecialchars($city['short_name']) ?>">
+                    <?= htmlspecialchars($city['name']) ?>
+                    </option>
+        <?php endforeach; ?>
                 </select>
             </label>
 
             <label><legend>To<span class="ast">*  </span><span class="errorCom" id="vto"></span></legend>
                 <select name="to" id="to">
                     <option value="" disabled selected>Select City</option>
-                    <option value="sa">Saudi Arabia</option>
-                    <option value="ua">United Arab Emirates</option>
+                    <?php foreach ($cities as $city): ?>
+                        <option value="<?= htmlspecialchars($city['short_name']) ?>">
+                    <?= htmlspecialchars($city['name']) ?>
+                    </option>
+        <?php endforeach; ?>
                 </select>
             </label>
 
@@ -129,7 +148,7 @@ include('../header/head.php');
                 <input type="number" name="Infants-Passenger" min="0"/>
             </label>
         </div>
-        <input type="submit" id="Search-button" name="Search" value="Search" onclick="return validateBook()" />
+        <input type="submit" id="Search-button" name="Search" value="Search"  />
 
     
 
@@ -189,6 +208,11 @@ include('../header/head.php');
         vto.innerHTML = "  (Required)";
         valid = false;
     }
+    if(from.value !== "" && to.value !== "" && from.value === to.value){
+    to.style.border = "2px solid red";
+    vto.innerHTML = " (Destination cannot be the same as departure)";
+    valid = false;
+}
 
     // Departing Date validation
 var today = new Date();

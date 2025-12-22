@@ -22,8 +22,10 @@ include('../header/head.php'); ?>
             <label class="signUp-label"><legend>Nationality<span class="ast">*  </span><span class="errorCom" id="vnation"></span></legend>
                 <select class="signUp-select" name="nationality">
                     <option value="" disabled selected>Select Nationality</option>
-                    <option value="Saudi Arabia">Saudi Arabia</option>
-                    <option value="Brazilian">Brazilian</option>
+                    <option value="Saudi">Saudi Arabian</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="Bahraini">Bahraini</option>
+                    <option value="Kuwaiti">Kuwaiti</option>
                 </select>
             </label>
         

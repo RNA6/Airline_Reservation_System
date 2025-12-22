@@ -50,8 +50,8 @@ include('../header/head.php'); ?>
 
             vem.innerText = "";
             vpass.innerText = "";
-            em.style.border = "none"; /////
-            pass.style.border = "none"; ///
+            em.style.border = "none"; 
+            pass.style.border = "none"; 
 
 
 

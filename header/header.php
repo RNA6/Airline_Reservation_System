@@ -14,10 +14,14 @@
             </ul>
         </div>
 
-        <div class="header-text-img">
-           <h3 id="htext" class="only-not-logged">For faster experience <a id="logIn" href="../SignIn-Page/SignIn-Page.php">Log In</a></h3> 
-            
+        <div class="header-h3-div">
+            <?php if (!isset($_SESSION['passport'])): ?>
+                <h3 id="header-text">For faster experience <a id="logIn" href="../SignIn-Page/SignIn-Page.php">Log In</a></h3>
+            <?php endif; ?>
 
+        </div>
+
+        <div class="header-text-img">
             <div class="user-menu-container">
                 <img src="../header/userProfile.png" class="user-icon" onclick="toggleUserMenu()">
 

@@ -41,15 +41,12 @@ $user = $result->fetch_assoc();
 $stmt->close();
 
 
-include('../header/header.php');
+include('../header/head.php');
 ?>
 
 
-<head>
-    <link rel="stylesheet" href="../style.css" type="text/css">
-<head>
-
 <body id="update-body">
+    <?php include('../header/header.php'); ?>
     <span class="dberror"><?= $_SESSION['Update_error'] ?? '' ?></span>
     <div class="update-background">
         <h1 id="update-title">Update Profile</h1>
@@ -66,8 +63,10 @@ include('../header/header.php');
         
             <label class="update-label"><legend>Nationality<span class="ast">*  </span><span class="errorCom" id="vnation"></span></legend>
                 <select class="update-select" name="nationality">
-                    <option value="Saudi Arabia"<?= ($user['nationality'] === 'Saudi Arabia') ? 'selected' : '' ?>>Saudi Arabia</option>
-                    <option value="Brazilian"<?= ($user['nationality'] === 'Brazilian') ? 'selected' : '' ?>>Brazilian</option>
+                    <option value="Saudi Arabian"<?= ($user['nationality'] === 'Saudi Arabian') ? 'selected' : '' ?>>Saudi Arabian</option>
+                    <option value="United Arab Emirates"<?= ($user['nationality'] === 'United Arab Emirates') ? 'selected' : '' ?>>United Arab Emirates</option>
+                    <option value="Bahraini"<?= ($user['nationality'] === 'Bahraini') ? 'selected' : '' ?>>Bahraini</option>
+                    <option value="Kuwaiti"<?= ($user['nationality'] === 'Kuwaiti') ? 'selected' : '' ?>>Kuwaiti</option>
                 </select>
             </label>
         
@@ -80,7 +79,7 @@ include('../header/header.php');
             </label>
         
             <label class="update-label"><legend>Email<span class="ast">*  </span><span class="errorCom" id="vem"></span></legend>
-                <input class="update-input" tupe="email"  name="email" value="<?= htmlspecialchars($user['email']) ?>"/>
+                <input class="update-input" type="email"  name="email" value="<?= htmlspecialchars($user['email']) ?>"/>
             </label>
         
             <label class="update-label"><legend>Birth Date<span class="ast">*  </span><span class="errorCom" id="vbirthDate"></span></legend>
@@ -89,9 +88,9 @@ include('../header/header.php');
         
             <label class="update-label"><legend>Title</legend>
                 <select class="update-input" name="title" value="<?= htmlspecialchars($user['title']) ?>">
-                    <option value="Mr"<?= ($user['nationality'] === 'Mr') ? 'selected' : '' ?>>Mr</option>
-                    <option value="Mrs"<?= ($user['nationality'] === 'Mrs') ? 'selected' : '' ?>>Mrs</option>
-                    <option value="Ms"<?= ($user['nationality'] === 'Ms') ? 'selected' : '' ?>>Ms</option>
+                    <option value="Mr"<?= ($user['title'] === 'Mr') ? 'selected' : '' ?>>Mr</option>
+                    <option value="Mrs"<?= ($user['title'] === 'Mrs') ? 'selected' : '' ?>>Mrs</option>
+                    <option value="Ms"<?= ($user['title'] === 'Ms') ? 'selected' : '' ?>>Ms</option>
                 </select>
             </label>
         
@@ -134,7 +133,7 @@ include('../header/header.php');
             var birth = document.getElementsByName("birth-date")[0];
             var vbirth = document.getElementById("vbirthDate");
 
-            var em = document.getElementById("email")
+            var em = document.getElementsByName("email")[0]
             var vem = document.getElementById("vem");
 
             var pass = document.getElementById("pass");
@@ -201,6 +200,7 @@ include('../header/header.php');
             if(nation.value === ""){
                 nation.style.border = "2px solid red";
                 vnation.innerHTML = "(Required)";
+                valid = false;
             }
 
         //PASSPORT NUMBER VALIDATION
@@ -277,33 +277,29 @@ include('../header/header.php');
             
 
         //Password
-            /*if(pass.value.trim() === ""){
-                pass.style.border = "2px solid red";
-                vpass.innerText = "(Required)";
-                valid = false;
-            }
-            else */ if(pass.value.length !== 8){
+        if(pass.value.trim() !== ""){
+                 if(pass.value.length < 8){
                 vpass.innerText = "(Password must be 8 characters)";
                 pass.style.border = "2px solid red";
-                valid = false
+                valid = false;
+                }
+        }
 
-            }
 
         //Confirm Password
-        /*if (conpass.value.trim() === "") {
-            conpass.style.border = "2px solid red";
-            vconpass.innerHTML = "(Required)";
-            valid = false;
-        } else */ if (conpass.value !== pass.value) {
+        if(pass.value.trim() !== ""){
+            if(conpass.value !== pass.value){
             conpass.style.border = "2px solid red";
             vconpass.innerHTML = "(Passwords do not match)";
             valid = false;
+            }
         }
+
 
         return valid;
                 
     }
     
     </script>
-<body>
+
 <?php include('../footer/footer.php'); ?>

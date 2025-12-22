@@ -48,6 +48,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION['first_name'] = $user['first_name'];
     $_SESSION['welcome']    = "Hello {$user['first_name']}, Welcome Back to FlyGo Website";
 
+
+$auth_code = session_id();
+
+$passport = $user['passport'];
+
+$auth_query = "UPDATE user SET access_token = '$auth_code' WHERE passport = '$passport'";
+
+$result = mysqli_query($conn, $auth_query);
+
+if ($result) {
+    header("Location: ../home/home.php");
+    exit;
+}
+
+
     header("Location: ../home/home.php");
     exit;
 }
