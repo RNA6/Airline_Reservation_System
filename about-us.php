@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php
-        $title = "About Us - FlyGo";
-        include('header/head.php');
-    ?>
-    <link rel="stylesheet" href="style.css">
+<?php
+    $title = "About Us";
+    include('header/head.php');
+?>
 </head>
 
 <body>
@@ -33,8 +29,8 @@
 
         <h2 class="common-text section-title">Team Members</h2>
         <ul class="about-list">
-            <li>Fadak Alibrahim – About us, Contact us, confirmation, checkout, cancel_success, trip_details, manage trip</li>
-            <li>Person 2 – Her work</li>
+            <li>Fadak Alibrahim – About Us, Contact Us, Confirmation, Checkout, Cancel Success, Trip Details, Manage Trip</li>
+            <li>Raihanah AlAli – Departure Flights, Arrival Flights, Passengers Details, Passengers Seats, Add Extras</li>
             <li>Person 3 – Her work</li>
         </ul>
 
@@ -43,6 +39,3 @@
 </main>
 
 <?php include('footer/footer.php'); ?>
-
-</body>
-</html>
