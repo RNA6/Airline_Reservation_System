@@ -1394,4 +1394,35 @@ a{
             margin: 40px 150px; 
             text-align:center;
         }
+/*  Contact Us Form */
 
+        .contact-form .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-form .form-label {
+            width: 120px;
+            font-weight: 500;
+        }
+
+        .contact-form .form-input {
+            flex: 1;
+            background-color: #fff;
+            border: 1px solid #bfbfbf;
+            padding: 8px 10px;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+
+        .contact-form textarea.form-input {
+            resize: vertical;
+        }
+
+
+        .contact-form .form-input:focus {
+            border-color: #2e2e2e;
+            outline: none;
+        }
