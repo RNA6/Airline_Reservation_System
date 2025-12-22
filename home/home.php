@@ -92,7 +92,7 @@ include('../header/head.php');
         
         <h1 id="home-part2-title">Book a Flight</h1>
 
-        <form method="POST" action="FlightDeparture.php" onsubmit="return validateBook()">
+        <form name="book-flight-form" method="POST" action="../flights/flight_departures.php" onsubmit="return validateBook()">
         
         <div class="home-radio-label">   
             <label class="home-radio-label">
@@ -109,22 +109,24 @@ include('../header/head.php');
             <label><legend>From<span class="ast">*  </span><span class="errorCom" id="vfrom"></span></legend>
                 <select name="from" id="from">
                     <option value="" disabled selected>Select City</option>
+
                     <?php foreach ($cities as $city): ?>
                         <option value="<?= htmlspecialchars($city['short_name']) ?>">
-                    <?= htmlspecialchars($city['name']) ?>
-                    </option>
-        <?php endforeach; ?>
+                        <?= htmlspecialchars($city['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </label>
 
             <label><legend>To<span class="ast">*  </span><span class="errorCom" id="vto"></span></legend>
                 <select name="to" id="to">
                     <option value="" disabled selected>Select City</option>
+
                     <?php foreach ($cities as $city): ?>
                         <option value="<?= htmlspecialchars($city['short_name']) ?>">
-                    <?= htmlspecialchars($city['name']) ?>
-                    </option>
-        <?php endforeach; ?>
+                        <?= htmlspecialchars($city['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </label>
 
@@ -149,8 +151,6 @@ include('../header/head.php');
             </label>
         </div>
         <input type="submit" id="Search-button" name="Search" value="Search"  />
-
-    
 
         </form>
 
