@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
 <?php
     $title = "Contact Us";
     include('header/head.php');
 ?>
-<link rel="stylesheet" href="style.css">
-</head>
 
 <body>
 
@@ -62,6 +57,3 @@
 </main>
 
 <?php include('footer/footer.php'); ?>
-
-</body>
-</html>
