@@ -41,15 +41,12 @@ $user = $result->fetch_assoc();
 $stmt->close();
 
 
-include('../header/header.php');
+include('../header/head.php');
 ?>
 
 
-<head>
-    <link rel="stylesheet" href="../style.css" type="text/css">
-<head>
-
 <body id="update-body">
+    <?php include('../header/header.php'); ?>
     <span class="dberror"><?= $_SESSION['Update_error'] ?? '' ?></span>
     <div class="update-background">
         <h1 id="update-title">Update Profile</h1>
@@ -82,7 +79,7 @@ include('../header/header.php');
             </label>
         
             <label class="update-label"><legend>Email<span class="ast">*  </span><span class="errorCom" id="vem"></span></legend>
-                <input class="update-input" tupe="email"  name="email" value="<?= htmlspecialchars($user['email']) ?>"/>
+                <input class="update-input" type="email"  name="email" value="<?= htmlspecialchars($user['email']) ?>"/>
             </label>
         
             <label class="update-label"><legend>Birth Date<span class="ast">*  </span><span class="errorCom" id="vbirthDate"></span></legend>
@@ -136,7 +133,7 @@ include('../header/header.php');
             var birth = document.getElementsByName("birth-date")[0];
             var vbirth = document.getElementById("vbirthDate");
 
-            var em = document.getElementById("email")
+            var em = document.getElementsByName("email")[0]
             var vem = document.getElementById("vem");
 
             var pass = document.getElementById("pass");
@@ -203,6 +200,7 @@ include('../header/header.php');
             if(nation.value === ""){
                 nation.style.border = "2px solid red";
                 vnation.innerHTML = "(Required)";
+                valid = false;
             }
 
         //PASSPORT NUMBER VALIDATION
@@ -279,33 +277,29 @@ include('../header/header.php');
             
 
         //Password
-            /*if(pass.value.trim() === ""){
-                pass.style.border = "2px solid red";
-                vpass.innerText = "(Required)";
-                valid = false;
-            }
-            else */ if(pass.value.length !== 8){
+        if(pass.value.trim() !== ""){
+                 if(pass.value.length < 8){
                 vpass.innerText = "(Password must be 8 characters)";
                 pass.style.border = "2px solid red";
-                valid = false
+                valid = false;
+                }
+        }
 
-            }
 
         //Confirm Password
-        /*if (conpass.value.trim() === "") {
-            conpass.style.border = "2px solid red";
-            vconpass.innerHTML = "(Required)";
-            valid = false;
-        } else */ if (conpass.value !== pass.value) {
+        if(pass.value.trim() !== ""){
+            if(conpass.value !== pass.value){
             conpass.style.border = "2px solid red";
             vconpass.innerHTML = "(Passwords do not match)";
             valid = false;
+            }
         }
+
 
         return valid;
                 
     }
     
     </script>
-<body>
+
 <?php include('../footer/footer.php'); ?>

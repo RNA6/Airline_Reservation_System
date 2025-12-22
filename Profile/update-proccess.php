@@ -9,7 +9,7 @@ if (!isset($_SESSION['passport'])) {
 
 $currentPassport = $_SESSION['passport'];
 
-/* استلام البيانات */
+/*taking data*/
 $first_name  = trim($_POST['first-name']);
 $last_name   = trim($_POST['last-name']);
 $nationality = $_POST['nationality'];
