@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://localhost/Airline_Reservation_System/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="shortcut icon" href="../header/title_icon.ico">
+        <link rel="shortcut icon" href="http://localhost/Airline_Reservation_System/header/title_icon.ico">
         <title><?php echo $title ?> | FlyGo</title>
         
         <script>
