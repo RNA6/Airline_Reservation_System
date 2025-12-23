@@ -1,0 +1,43 @@
+<?php
+$ticket_number = $_GET['ticket_number'] ?? '';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancellation Successful</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<main class="confirmation-container">
+
+    <div class="ticket-card centered-ticket">
+        <div class="ticket-header">
+            <span class="p-name">Booking Canceled</span>
+            <span class="airline-code" style="text-decoration: line-through;">SAR</span>
+        </div>
+
+        <div class="ticket-info">
+            <small>Ticket #<?= htmlspecialchars($ticket_number); ?></small>
+        </div>
+
+        <div class="cancel-msg-box">
+            <p>is canceled successfully</p>
+            <p>you will get your money back soon</p>
+        </div>
+    </div>
+
+    <div class="action-area">
+        <a href="home/home.php" class="btn-ok">OK</a>
+    </div>
+
+</main>
+
+</body>
+</html>
