@@ -4,22 +4,29 @@
     include("flygo_system_sqldb/classes.php");
     
     session_start();
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        for ($i=0; $i <$_SESSION['booking']['total_passengers'] - (int) $_SESSION['booking']['infants_number']; $i++) {
-            $_SESSION['booking']['extras'.($i+1)] = []; 
+    if (!isset($_SESSION['passport'])) {
+        header("Location: SignIn-Page/SignIn-Page.php");
+        exit;
+    }
+
+    if (
+        $_SERVER['REQUEST_METHOD'] === 'POST'
+        && isset($_POST['selected_bag1'])
+    ) {
+        for ($i = 0; $i < $_SESSION['booking']['total_passengers'] - (int)$_SESSION['booking']['infants_number']; $i++) {
+
+            $_SESSION['booking']['extras'.($i+1)] = [];
             $_SESSION['booking']['extras'.($i+1)][0] = $_POST['selected_bag1'][$i];
             $_SESSION['booking']['extras'.($i+1)][1] = $_POST['selected_bag2'][$i];
             $_SESSION['booking']['extras'.($i+1)][2] = $_POST['selected_bag3'][$i];
             $_SESSION['booking']['extras'.($i+1)][3] = $_POST['selected_meal'][$i];
-            
-            $_SESSION['booking']['bags_total'] = $_POST['total_baggage'];
-            $_SESSION['booking']['meals_total'] = $_POST['total_meals'];
         }
-        
-        
-        header("Location: checkout.php");
-        exit;
+
+        $_SESSION['booking']['bags_total']  = $_POST['total_baggage'];
+        $_SESSION['booking']['meals_total'] = $_POST['total_meals'];
+
     }
+
     $title ="Checkout";
     include('header/head.php'); 
 ?>
@@ -96,36 +103,37 @@
         <div class="payment-section">
     <h3>Credit/Debit card details</h3>
     
-    <form action="confirmation.html" class="payment-form">
+    <form action="save_card.php" method="POST">
         
         <div class="name-fields">
             <div class="form-group">
                 <label>F.Name</label>
-                <input type="text" class="input-box" placeholder="First Name" required>
+                <input type="text" name="first_name" class="input-box" placeholder="First Name" required>
             </div>
             <div class="form-group">
                 <label>L.Name</label>
-                <input type="text" class="input-box" placeholder="Last Name" required>
+                <input type="text" name="last_name" class="input-box" placeholder="Last Name" required>
             </div>
         </div>
 
         <div class="form-group">
             <label>Card Number <small>required</small></label>
-            <input type="text" 
-                   class="input-box" 
-                   placeholder="0000 0000 0000 0000" 
-                   pattern="\d*" 
-                   maxlength="16"
-                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"<!--ONLY-Numbers-->
-                   required>
+            <input type="text"
+            name="card_number"
+            placeholder="0000000000000000"
+            class="input-box"
+            maxlength="16"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            required>
+
         </div>
 
         <div class="expiry-fields">
             <div class="form-group">
                 <label>Expires On <small>required</small></label>
                 <div class="date-selects">
-                    
-                    <select class="input-box" required>
+
+                    <select name="exp_month" class="input-box" required>
                         <option value="" disabled selected>Month</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -141,7 +149,7 @@
                         <option value="12">12</option>
                     </select>
 
-                    <select class="input-box" required>
+                    <select name="exp_year" class="input-box" required>
                         <option value="" disabled selected>Year</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
@@ -155,14 +163,16 @@
         </div>
 
         <div class="form-group security-code">
+
             <label>Security Code <small>required</small></label>
             <div class="cvv-box">
-                <input type="text" 
-                       class="input-box short" 
-                       placeholder="CVV" 
-                       maxlength="4"
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                       required>
+                <input type="text"
+                name="cvv"
+                class="input-box short"
+                placeholder="CVV"
+                maxlength="3"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                required>
                 <i class="fa-regular fa-credit-card"></i>
             </div>
         </div>
