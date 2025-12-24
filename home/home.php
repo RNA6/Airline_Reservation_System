@@ -1,13 +1,12 @@
 <?php 
 
 session_start();
-
-require_once "../flygo_system_sqldb/db.php";
+require_once "../flygo_system_sqldb/database.php";
 
 $cities = [];
 
 $sql = "SELECT name, short_name FROM cities ORDER BY name";
-$result = $conn->query($sql);
+$result = $connection->query($sql);
 
 if ($result) {
     while ($row = $result->fetch_assoc()) {
@@ -79,7 +78,7 @@ include('../header/head.php');
             <div class="view">
                 <h1 id="tview">View</h1>
                 <p>Access your booked ticket details and review all the information for your upcoming trip in one place.</p>
-                <button class="home-part1-buttons" name="view now"><a href="../manage.html">View Now</a></button>
+                <button class="home-part1-buttons" name="view now"><a href="../manage.php">View Now</a></button>
             </div>
         </div>
     </div>

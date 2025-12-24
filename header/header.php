@@ -28,7 +28,6 @@
                  <div class="user-dropdown" id="userDropdown">
                     <!-- If user in login -->
                     <a href="http://localhost/Airline_Reservation_System/Profile/Profile.php" class="logged-in only-logged">User Info</a>
-                    <a href="#" class="logged-in only-logged">My Trips</a>
                     <a href="http://localhost/Airline_Reservation_System/header/LogOut.php" class="logged-in only-logged">Log Out</a>
 
                     <!-- If user in logOut -->

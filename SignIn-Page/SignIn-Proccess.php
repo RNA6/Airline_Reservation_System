@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../flygo_system_sqldb/db.php";
+require_once "../flygo_system_sqldb/database.php";
 
 //delete previous errors
 $_SESSION['login_email_error'] = "";
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         WHERE u.email = ?
     ";
 
-    $stmt = $conn->prepare($sql);
+    $stmt = $connection->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -55,16 +55,16 @@ $passport = $user['passport'];
 
 $auth_query = "UPDATE user SET access_token = '$auth_code' WHERE passport = '$passport'";
 
-$result = mysqli_query($conn, $auth_query);
+$result = mysqli_query($connection, $auth_query);
 
 if ($result) {
     header("Location: ../home/home.php");
     exit;
 }
 
-
     header("Location: ../home/home.php");
     exit;
 }
+?>
 
 

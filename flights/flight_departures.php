@@ -1,31 +1,49 @@
 <?php 
     include("../flygo_system_sqldb/database.php");
     include("date_util.php");
-    include("../flygo_system_sqldb/flights_database.php");
-    // if(isset($_POST['from'])){
-        $_POST['from'] = "DMM";
-        $_POST['to'] = "MED";
-    // }
-
-    session_start();
-    $_SESSION['booking'] = [];
-    $_SESSION['booking']['adults_number'] = 1;
-    $_SESSION['booking']['children_number'] =1 ;
-    $_SESSION['booking']['infants_number'] =1;
+    include("../flygo_system_sqldb/database_utilities.php");
     
-    $flights = get_flights_by_cities($connection, $_POST['from'], $_POST['to']);
+    session_start();
+    $flights = array();
+
+    if(!isset($_POST['Search']) && !isset($_SESSION['booking']['departure_date'])){
+        header("Location: ../home/home.php");
+        exit;
+    }
+
+    $flights = [];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        if(isset($_POST['Search'])){
+            // if($_POST['departingDate'] > new DateTime("2025-12-31") || $_POST['departingDate'] < new DateTime("2025-12-24")){
+            //     header("Location: ../home/home.php");
+            //     exit;
+            // }
+            $_SESSION['booking'] = [];
+            $_SESSION['booking']['from'] = $_POST['from'];
+            $_SESSION['booking']['to'] = $_POST['to'];
+            $_SESSION['booking']['departure_date'] = $_POST['departingDate'];
+            if($_POST['flight-type'] === 'Round Trip'){
+                $_SESSION['booking']['arrival_date'] = $_POST['returningDate'];
+            }
+            $_SESSION['booking']['adults_number'] = $_POST['Adult-Passenger'];
+            $_SESSION['booking']['children_number'] = $_POST['Children-Passenger'];
+            $_SESSION['booking']['infants_number'] = $_POST['Infants-Passenger'];
+        }
+        header("Location: flight_departures.php");
+        exit;
+    }
+    
+    
+    $flights = get_flights_by_cities($connection, $_SESSION['booking']['from'], $_SESSION['booking']['to'], $_SESSION['booking']['departure_date']);
+    
+    $title ="Flight Departures";
+    include('../header/head.php'); 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Flight Departures</title>
-        <link rel="stylesheet" href="../style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    </head>
-    <body>
-        
+</head>
+    <body>        
+    <?php include('../header/header.php');?> 
         <main class="common-container">
         
             <h2 class="head-title flights">
@@ -35,7 +53,11 @@
                 <strong><?php echo get_flight_date($flights[0]['departure_time']);?></strong>
             </div>
             
-            <?php $next_page = 'flight_arrival.php'?>
+            <?php 
+                $next_page = '../passengers_details/passengeres_details.php';
+                if(isset($_SESSION['booking']['arrival_date'])){
+                    $next_page = 'flight_arrival.php';
+            }?>
             <form id="departure_tickets_form" name="departure_tickets_form" class="tickets" method="POST" action="<?php echo $next_page;?>">
                 <span id="flightError" class="common-text error-text">
                     Please select a flight to continue.
@@ -82,5 +104,4 @@
             
             
         </main>
-    </body>
-</html>
+<?php include('../footer/footer.php'); ?>

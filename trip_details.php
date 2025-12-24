@@ -1,5 +1,5 @@
 <?php
-include "flygo_system_sqldb/db.php";
+include "flygo_system_sqldb/database.php";
 
 /* check ticket number*/
 if (!isset($_GET['ticket_number'])) {
@@ -22,7 +22,7 @@ JOIN flights f ON t.flight_number = f.flight_number
 WHERE t.ticket_number = ?
 ";
 
-$stmt = mysqli_prepare($conn, $flight_sql);
+$stmt = mysqli_prepare($connection, $flight_sql);
 mysqli_stmt_bind_param($stmt, "i", $ticket_number);
 mysqli_stmt_execute($stmt);
 $flight = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
@@ -45,25 +45,19 @@ JOIN extra e ON p.passport = e.passport
 WHERE e.ticket_number = ?
 ";
 
-$stmt2 = mysqli_prepare($conn, $passengers_sql);
+$stmt2 = mysqli_prepare($connection, $passengers_sql);
 mysqli_stmt_bind_param($stmt2, "i", $ticket_number);
 mysqli_stmt_execute($stmt2);
 $passengers = mysqli_stmt_get_result($stmt2);
+
+    session_start();
+        $title ="Trip Details";
+    include('header/head.php'); 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trip Details</title>
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
+    <?php 
+    include('header/header.php'); ?>
 <main class="confirmation-container">
 
     <h1 class="page-title" style="color:#000">Trip Details</h1>
@@ -146,5 +140,4 @@ $passengers = mysqli_stmt_get_result($stmt2);
 
 </main>
 
-</body>
-</html>
+<?php include('footer/footer.php'); ?>

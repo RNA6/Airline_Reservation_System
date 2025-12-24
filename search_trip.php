@@ -1,5 +1,5 @@
 <?php
-include "flygo_system_sqldb/db.php";
+include "flygo_system_sqldb/database.php";
 
 $ticket_number = $_POST['ticket_number'];
 $last_name = $_POST['last_name'];
@@ -14,7 +14,7 @@ AND p.last_name = ?
 LIMIT 1
 ";
 
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($connection, $sql);
 mysqli_stmt_bind_param($stmt, "is", $ticket_number, $last_name);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);

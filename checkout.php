@@ -1,14 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Booking</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<?php
+    include("flygo_system_sqldb/database.php");
+    include("flygo_system_sqldb/database_utilities.php");
+    include("flygo_system_sqldb/classes.php");
+    
+    session_start();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        for ($i=0; $i <$_SESSION['booking']['total_passengers'] - (int) $_SESSION['booking']['infants_number']; $i++) {
+            $_SESSION['booking']['extras'.($i+1)] = []; 
+            $_SESSION['booking']['extras'.($i+1)][0] = $_POST['selected_bag1'][$i];
+            $_SESSION['booking']['extras'.($i+1)][1] = $_POST['selected_bag2'][$i];
+            $_SESSION['booking']['extras'.($i+1)][2] = $_POST['selected_bag3'][$i];
+            $_SESSION['booking']['extras'.($i+1)][3] = $_POST['selected_meal'][$i];
+            
+            $_SESSION['booking']['bags_total'] = $_POST['total_baggage'];
+            $_SESSION['booking']['meals_total'] = $_POST['total_meals'];
+        }
+        
+        
+        header("Location: checkout.php");
+        exit;
+    }
+    $title ="Checkout";
+    include('header/head.php'); 
+?>
 </head>
-<body>
-
+    <body>        
+    <?php include('header/header.php');?> 
     <main class="checkout-container">
         <h1 class="page-title">Complete your booking</h1>
 
@@ -158,5 +175,4 @@
 </div>
 
     </main>
-</body>
-</html>
+<?php include('footer/footer.php'); ?>

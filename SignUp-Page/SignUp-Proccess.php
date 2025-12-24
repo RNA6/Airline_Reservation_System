@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../flygo_system_sqldb/db.php');
+require_once('../flygo_system_sqldb/database.php');
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../SignUp-Page/SignUp-Page.php");
@@ -20,7 +20,7 @@ $password   = $_POST['password'];
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 //Check for Passport duplication
-$stmt = mysqli_prepare($conn, "SELECT passport FROM passenger WHERE passport = ?");
+$stmt = mysqli_prepare($connection, "SELECT passport FROM passenger WHERE passport = ?");
 mysqli_stmt_bind_param($stmt, "s", $passport);
 mysqli_stmt_execute($stmt);
 mysqli_stmt_store_result($stmt);
@@ -34,7 +34,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 mysqli_stmt_close($stmt);
 
 //Check for Email duplication
-$stmt = mysqli_prepare($conn, "SELECT email FROM user WHERE email = ?");
+$stmt = mysqli_prepare($connection, "SELECT email FROM user WHERE email = ?");
 mysqli_stmt_bind_param($stmt, "s", $email);
 mysqli_stmt_execute($stmt);
 mysqli_stmt_store_result($stmt);
@@ -50,7 +50,7 @@ mysqli_stmt_close($stmt);
 //Pass data to Passenger table
 $age_group = "Adult";
 
-$stmt = mysqli_prepare($conn,
+$stmt = mysqli_prepare($connection,
     "INSERT INTO passenger (title, first_name, last_name, nationality, passport, birth_date, age_group)
      VALUES (?, ?, ?, ?, ?, ?, ?)"
 );
@@ -69,7 +69,7 @@ mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
 
 //Pass data to User table
-$stmt = mysqli_prepare($conn,
+$stmt = mysqli_prepare($connection,
     "INSERT INTO user (passport, email, password, phone_number)
      VALUES (?, ?, ?, ?)"
 );

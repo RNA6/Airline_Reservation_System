@@ -1,7 +1,7 @@
 <div id="footer">
     <hr class="footer-line"/>
 
-    <a class="lo" href="#"><img Id="logo" src="http://localhost/Airline_Reservation_System/header/logo.png" alt="FlyGo Logo"/></a>
+    <img Id="logo" src="http://localhost/Airline_Reservation_System/header/logo.png" alt="FlyGo Logo"/>
 
     <div class="lo">
         <p class="lo">Follow us</p>
