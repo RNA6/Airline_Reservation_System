@@ -1,35 +1,35 @@
 <?php if($type === 'business'){?>
     <label>
-    <input class="inputs" type="checkbox" name="seats" value="A"/>
-    <div class="seats business" id="seat-<?php echo $row?>A"></div>
+    <input id="seat-<?php echo $row?>A" class="inputs" type="checkbox" name="seats" value="<?php echo $row?>A"/>
+    <div class="seats business"></div>
     </label>
 
     <span class="hall-way"></span>
 
     <label>
-        <input class="inputs" type="checkbox" name="seats" value="B"/>
-        <div class="seats business" id="seat-<?php echo $row?>B"></div>
+        <input id="seat-<?php echo $row?>B" class="inputs" type="checkbox" name="seats" value="<?php echo $row?>B"/>
+        <div class="seats business"></div>
     </label>
 <?php } else{?>
     <label>
-    <input class="inputs" type="checkbox" name="seats" value="A"/>
-    <div class="seats" id="seat-<?php echo $row?>A"></div>
+    <input id="seat-<?php echo $row?>A" class="inputs" type="checkbox" name="seats" value="<?php echo $row?>A"/>
+    <div class="seats"></div>
     </label>
 
     <label style="margin-left: 15px">
-        <input class="inputs" type="checkbox" name="seats" value="B"/>
-        <div class="seats" id="seat-<?php echo $row?>B"></div>
+        <input  id="seat-<?php echo $row?>B" class="inputs" type="checkbox" name="seats" value="<?php echo $row?>B"/>
+        <div class="seats" ></div>
     </label>
 
     <span class="hall-way"></span>
 
     <label>
-        <input class="inputs" type="checkbox" name="seats" value="C"/>
-        <div class="seats" id="seat-<?php echo $row?>C"></div>
+        <input id="seat-<?php echo $row?>C" class="inputs" type="checkbox" name="seats" value="<?php echo $row?>C"/>
+        <div class="seats" ></div>
     </label>
 
     <label style="margin-left: 15px">
-        <input class="inputs" type="checkbox" name="seats" value="D"/>
-        <div class="seats" id="seat-<?php echo $row?>D"></div>
+        <input id="seat-<?php echo $row?>D" class="inputs" type="checkbox" name="seats" value="<?php echo $row?>D"/>
+        <div class="seats" ></div>
     </label>
 <?php }?>

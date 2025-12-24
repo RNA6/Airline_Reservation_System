@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $title = "About Us";
     include('header/head.php');
 ?>
@@ -31,7 +32,7 @@
         <ul class="about-list">
             <li>Fadak Alibrahim – About Us, Contact Us, Confirmation, Checkout, Cancel Success, Trip Details, Manage Trip</li>
             <li>Raihanah AlAli – Departure Flights, Arrival Flights, Passengers Details, Passengers Seats, Add Extras</li>
-            <li>Person 3 – Her work</li>
+            <li>Waad AlHanfosh – Home, Sign In, Sign Up, Profile, Log Out, Header, Footer</li>
         </ul>
 
     </div>

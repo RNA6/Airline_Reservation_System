@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Trip Details</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<?php
+    session_start();
+    $title ="View Trip details";
+    include('header/head.php'); 
+?>
 </head>
 <body>
-
+    <?php include('header/header.php'); ?>
     <main class="manage-container">
         
         <div class="user-corner">
@@ -30,8 +27,8 @@
             </div>
 
             <div class="manage-actions">
-                <a href="home/home.html" class="btn-blue-outline">Cancel</a>
-                <button type="submit" class="btn-blue-fill">View</button>
+                <a href="home/home.php" class="btn-gray-outline">Cancel</a>
+                <button type="submit" class="btn-blue-outline">View</button>
             </div>
 
         </form>
@@ -39,5 +36,4 @@
 
 
     </main>
-</body>
-</html>
+<?php include('footer/footer.php'); ?>

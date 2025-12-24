@@ -1,20 +1,12 @@
 <?php
-$ticket_number = $_GET['ticket_number'] ?? '';
+    session_start();
+    $ticket_number = $_GET['ticket_number'] ?? '';
+    $title ="Cancellation Successful";
+    include('header/head.php'); 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cancellation Successful</title>
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
+    <?php include('header/header.php'); ?>
 <main class="confirmation-container">
 
     <div class="ticket-card centered-ticket">
@@ -39,5 +31,4 @@ $ticket_number = $_GET['ticket_number'] ?? '';
 
 </main>
 
-</body>
-</html>
+<?php include('footer/footer.php'); ?>

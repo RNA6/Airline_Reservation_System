@@ -3,7 +3,7 @@
 $title ="Profile";
 
 session_start();
-require_once "../flygo_system_sqldb/db.php"; 
+require_once "../flygo_system_sqldb/database.php"; 
 
 if (!isset($_SESSION['passport'])) {
     header("Location: ../Profile/Profile.php");
@@ -28,7 +28,7 @@ JOIN user u ON p.passport = u.passport
 WHERE p.passport = ?
 ";
 
-$stmt = $conn->prepare($sql);
+$stmt = $connection->prepare($sql);
 $stmt->bind_param("s", $passport);
 $stmt->execute();
 $result = $stmt->get_result();

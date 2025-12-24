@@ -1,27 +1,25 @@
 <?php 
     include("../flygo_system_sqldb/database.php");
     include("date_util.php");
-    include("../flygo_system_sqldb/flights_database.php");
-    if(isset($_POST['ticket'])){
+    include("../flygo_system_sqldb/database_utilities.php");
+    
+    session_start();
+    $flights = [];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $departure_number = $_POST['ticket'];
         $_SESSION['booking']['departure_flight_number'] = $departure_number;
+        header("Location: flight_arrival.php");
+        exit;
     }
-    if(isset($_SESSION['booking']['departure_flight_number'])){
-        $departure_flight = get_flight_by_flight_number($connection, $departure_number);
-        $flights = get_flights_by_cities($connection, $departure_flight['destination_city'], $departure_flight['origin_city']);
-    }
-    //add errors on required
+    $flights = get_flights_by_cities($connection, $_SESSION['booking']['to'], $_SESSION['booking']['from'], $_SESSION['booking']['arrival_date']);
+    
+
+    $title ="Flight Arrival";
+    include('../header/head.php'); 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Flight Arrival</title>
-        <link rel="stylesheet" href="../style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    </head>
-    <body>
+</head>
+    <body>        
+    <?php include('../header/header.php');?> 
         <main class="common-container">
         
         <h2 class="head-title flights">
@@ -41,7 +39,7 @@
                 <div class="action-area flights">
                     <a href="flight_departures.php" class="btn-gray-outline">Back</a>
 
-                    <button id="submit" type="submit" name="select" class="btn-blue-outline">Select</button>  
+                    <button id="submit" type="select_arrival" name="select" class="btn-blue-outline">Select</button>  
                 </div>
                 <script>
                     var form = document.getElementById("arrival_tickets_form");
@@ -73,5 +71,4 @@
         
 
     </main>
-    </body>
-</html>
+<?php include('../footer/footer.php'); ?>

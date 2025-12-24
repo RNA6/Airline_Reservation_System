@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../flygo_system_sqldb/db.php');
+require_once('../flygo_system_sqldb/database.php');
 
 if (!isset($_SESSION['passport'])) {
     header("Location: ../SignIn-Page/SignIn-Page.php");
@@ -21,7 +21,7 @@ $title       = $_POST['title'] ?? null;
 $password    = $_POST['password'] ?? '';
 
 $stmt = mysqli_prepare(
-    $conn,
+    $connection,
     "SELECT passport FROM passenger WHERE passport = ? AND passport != ?"
 );
 mysqli_stmt_bind_param($stmt, "ss", $newPassport, $currentPassport);
@@ -37,7 +37,7 @@ mysqli_stmt_close($stmt);
 
 
 $stmt = mysqli_prepare(
-    $conn,
+    $connection,
     "SELECT email FROM user WHERE email = ? AND passport != ?"
 );
 mysqli_stmt_bind_param($stmt, "ss", $email, $currentPassport);
@@ -52,7 +52,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 mysqli_stmt_close($stmt);
 
 $stmt = mysqli_prepare(
-    $conn,
+    $connection,
     "UPDATE passenger
      SET title=?, first_name=?, last_name=?, nationality=?, passport=?, birth_date=?
      WHERE passport=?"
@@ -77,7 +77,7 @@ if (!empty($password)) {
     $hashed = password_hash($password, PASSWORD_DEFAULT);
 
     $stmt = mysqli_prepare(
-        $conn,
+        $connection,
         "UPDATE user
          SET email=?, phone_number=?, password=?, passport=?
          WHERE passport=?"
@@ -95,7 +95,7 @@ if (!empty($password)) {
 }
 else {
     $stmt = mysqli_prepare(
-        $conn,
+        $connection,
         "UPDATE user
          SET email=?, phone_number=?, passport=?
          WHERE passport=?"

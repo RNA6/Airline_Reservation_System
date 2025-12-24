@@ -126,6 +126,14 @@ a{
     border-radius: 10px;
 }
 
+.inputs:disabled,
+select:disabled{
+    background-color: white !important;
+    color: black !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+}
+
 .passenger-title>.inputs{
     padding: 0px;
 }
@@ -274,24 +282,30 @@ a{
     font-size: 1.1rem;
     margin-bottom:30px ;
 }
+.passenger-seat-container{
+    display: flex;
+    justify-content:space-between;
+}
 
 .seats.passenger{
     height: 30px;
     line-height: 30px;
     text-align: center;
-    background-color: #95d2ec; 
+    font-size: 1rem;
+    background-color: #95d2ec;
+    margin-right: 10px; 
 }
 
 .passenger-name{
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-top: 20px;
 }
 
 .action-area.seats-actions {
     display: block;
 }
 
-.action-area.seats-actions a{
+.action-area.seats-actions .btn-blue-outline{
+    display: inline-block;
     margin-left:40px;
 }
 
@@ -321,10 +335,13 @@ a{
     margin-bottom: 40px;
 }
 
-.select-section > form{
+.select-section >.seats-form, .extras-from{
     display: flex;
     gap: 50px;
     flex-wrap: wrap;
+}
+.extras-from{
+    margin-bottom: 50px;
 }
 
 .add-extra.common-text{
