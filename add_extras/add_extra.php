@@ -35,7 +35,7 @@
     class BaggagePrices {
         constructor() {
             this.bags = {
-                "7Kg": 20,     // usually free cabin bag
+                "7Kg": 20,     
                 "14Kg": 50,
                 "23Kg": 80
             };
@@ -263,7 +263,7 @@
                                             var total = Number(suitcase_rooling_LN) * bags_list.getBagPrice("23Kg");
                                             total_baggage_price += total;
                                             pCBLP[passenger_counter].textContent = total + " SAR";
-                                            hidden_bag[passenger_counter].value = suitcase_rooling_LN;
+                                            hidden_bag3[passenger_counter].value = suitcase_rooling_LN;
                                             }
                                             else{
                                                 pCBL[passenger_counter].parentElement.style.display = "none";                
@@ -281,7 +281,7 @@
                                             if(passenger_counter === <?php echo $_SESSION['booking']['total_passengers'] - (int)$_SESSION['booking']['infants_number'];?>){
                                                 Array.from(form.elements).forEach(element => {
                                                     if(element.getAttribute('type')!="hidden")
-                                                    element.disabled = true;
+                                                        element.disabled = true;
                                                 });
                                                 
                                                 submitBtn.disabled = false;
@@ -308,7 +308,7 @@
                     <a href="../passengers_seats/select_seats.php" >
                         <button type="button" class="btn-gray-outline">Back</button> 
                     </a>
-                    <button type="submit" id="submit" class="btn-blue-outline">Continue to Payment</button>    
+                    <button name="continue" type="submit" id="submit" class="btn-blue-outline">Continue to Payment</button>    
                 </div>
 
                 <script>

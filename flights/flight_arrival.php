@@ -13,6 +13,10 @@
     }
     $flights = get_flights_by_cities($connection, $_SESSION['booking']['to'], $_SESSION['booking']['from'], $_SESSION['booking']['arrival_date']);
     
+    if(empty($flights)){
+        header("Location: ../home/home.php");
+        exit;
+    }
 
     $title ="Flight Arrival";
     include('../header/head.php'); 
@@ -67,8 +71,5 @@
                     });                    
                 </script>
             </form>
-
-        
-
     </main>
 <?php include('../footer/footer.php'); ?>

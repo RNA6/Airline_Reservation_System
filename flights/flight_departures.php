@@ -38,6 +38,10 @@
     
     $flights = get_flights_by_cities($connection, $_SESSION['booking']['from'], $_SESSION['booking']['to'], $_SESSION['booking']['departure_date']);
     
+    if(empty($flights)){
+        header("Location: ../home/home.php");
+        exit;
+    }
     $title ="Flight Departures";
     include('../header/head.php'); 
 ?>
