@@ -301,7 +301,8 @@ select:disabled{
 }
 
 .action-area.seats-actions {
-    display: block;
+    display: flex;
+    justify-content:space-between;
 }
 
 .action-area.seats-actions .btn-blue-outline{
@@ -310,7 +311,7 @@ select:disabled{
 }
 
 .action-area.seats-actions .btn-blue-outline{
-    padding: 8px 10px;
+    padding: 5px;
 }
 
 /*Add Extra*/

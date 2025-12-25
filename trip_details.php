@@ -12,7 +12,7 @@ $ticket_number = $_GET['ticket_number'];
 $flight_sql = "
 SELECT 
     t.ticket_number,
-    t.class,
+    t.travel_class,
     f.origin,
     f.destination,
     f.departure_time,
@@ -67,9 +67,8 @@ $passengers = mysqli_stmt_get_result($stmt2);
         
         <div class="ticket-header">
             <span class="p-name">
-                <?= $flight['class']; ?> Class
+                <?= $flight['travel_class']; ?> Class
             </span>
-            <span class="airline-code">#SAR</span>
         </div>
 
         <!-- Ticket Info -->

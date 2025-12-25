@@ -138,7 +138,7 @@
                         var passenger_seats = document.getElementsByClassName("seats passenger");
                         var max = <?php echo $_SESSION['booking']['total_passengers']?>;
                         var passenger_seat_counter = 0;
-                        seats.forEach(element => {
+                        Array.from(seats).forEach(element => {
                             element.addEventListener("click", function(){
                                 if(element.checked){
                                     if(passenger_seat_counter === max){
@@ -188,25 +188,20 @@
                     
                 ?>
             </div>
-            <div class="action-area seats-actions">            
-                <button class="btn-blue-outline">Add Extra</button>
-                <button class="btn-blue-outline">Skip to Payment</button>
+            <div class="action-area seats-actions"> 
+                <a href="../passengers_details/passengeres_details.php">
+                    <button type="button" class="btn-gray-outline">Back</button>
+                </a>           
+                <button type="button" class="btn-blue-outline">Add Extra</button>
                 <script>
                     var buttons = document.getElementsByClassName('btn-blue-outline');
                     buttons[0].addEventListener("click", function(event){
-                        event.preventDefault;
+                        event.preventDefault();
                         form.action = "../add_extras/add_extra.php";
                         form.submit();
                     });
-                    buttons[1].addEventListener("click", function(){
-                        event.preventDefault;
-                        form.action = "../checkout.php";
-                        form.submit();
-                    });
                 </script>
-                <a href="../passengers_details/passengeres_details.php" style="margin-left:150px; margin-top: 20px;">
-                    <button type="button" class="btn-gray-outline">Back</button>
-                </a>
+                
             </div>  
         </form>
         

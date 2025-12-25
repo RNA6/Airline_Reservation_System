@@ -1,6 +1,11 @@
 <?php
+include("flygo_system_sqldb/database.php");
+include("flygo_system_sqldb/database_utilities.php");
+include("flygo_system_sqldb/classes.php");
+
 session_start();
-require_once __DIR__ . "/flygo_system_sqldb/database.php";
+
+insert_all($connection);
 
 if (!isset($_SESSION['passport'])) {
     header("Location: SignIn-Page/SignIn-Page.php");
