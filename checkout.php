@@ -1,6 +1,7 @@
 <?php
     include("flygo_system_sqldb/database.php");
     include("flygo_system_sqldb/database_utilities.php");
+    include("flights/date_util.php");
     include("flygo_system_sqldb/classes.php");
     
     session_start();
@@ -9,10 +10,7 @@
         exit;
     }
 
-    if (
-        $_SERVER['REQUEST_METHOD'] === 'POST'
-        && isset($_POST['selected_bag1'])
-    ) {
+    if($_SERVER['REQUEST_METHOD'] === 'POST'&& isset($_POST['selected_bag1'])){
         for ($i = 0; $i < $_SESSION['booking']['total_passengers'] - (int)$_SESSION['booking']['infants_number']; $i++) {
 
             $_SESSION['booking']['extras'.($i+1)] = [];
@@ -24,8 +22,27 @@
 
         $_SESSION['booking']['bags_total']  = $_POST['total_baggage'];
         $_SESSION['booking']['meals_total'] = $_POST['total_meals'];
-
+                   
+        header("Location: checkout.php");
+        exit;             
     }
+    $flight_number = $_SESSION['booking']['departure_flight_number'];
+    $flight = get_flight_by_flight_number($connection, $flight_number);
+
+    $passengers = [];
+    for ($i=0; $i <$_SESSION['booking']['total_passengers'] ; $i++) { 
+        $passengers[$i] = $_SESSION['booking']['passengers'][$i];
+    }
+
+    $user = null;
+    if (isset($_SESSION['passport'])){
+        $user = get_user_details($connection, $_SESSION['passport']);
+        $user_contact_setails = get_user_contact_details($connection, $_SESSION['passport']);
+    }
+
+    $tickets = ((int)$_SESSION['booking']['total_passengers'] * 200);
+    $seats = ((int)$_SESSION['booking']['total_passengers'] * 60); 
+    $total = $tickets + $seats + $_SESSION['booking']['meals_total'] + $_SESSION['booking']['bags_total'];
 
     $title ="Checkout";
     include('header/head.php'); 
@@ -40,24 +57,31 @@
             
             <div class="ticket-card black-border">
                 <div class="ticket-header">
-                    <span class="p-name">Title, Name</span>
-                    <span class="airline-code">#SAR</span>
+                    <span class="p-name">
+                        <?php if($user === null){
+                            echo $_SESSION['booking']['passengers'][0]->getTitle().", ". $_SESSION['booking']['passengers'][0]->getFirst_name();
+                        }
+                        else{
+                            echo $user->getTitle().", ".  $user->getFirst_name();
+                        }
+                        ?></span>
+                    <span class="airline-code"><?php echo $total;?> SAR</span>
                 </div>
                 
                 <div class="ticket-info">
-                    <small>#Ticket Number</small>
+                    <small>#<?php echo $flight['flight_number']?></small>
                     <div class="flight-route">
                         <div class="city">
-                            <strong>JED</strong>
-                            <span>20:20</span>
+                            <strong><?php echo $flight['origin_city_name']?></strong>
+                            <span><?php echo get_flight_time($flight['departure_time']);?></span>
                         </div>
                         <div class="path">
                             <span class="duration">Non-Stop 1h 5m</span>
                             <div class="line"><i class="fa-solid fa-plane"></i></div>
                         </div>
                         <div class="city">
-                            <strong>MED</strong>
-                            <span>21:25</span>
+                            <strong><?php echo $flight['destination_city_name']?></strong>
+                            <span><?php echo get_flight_time($flight['arrival_time']);?></span>
                         </div>
                     </div>
                 </div>
@@ -65,14 +89,15 @@
                 <div class="passenger-details">
     			<strong>passengers details</strong>
     			<ul class="p-list">
-        			<li>
-            			<span>Ali</span>
-            			<span class="p-type">(Adult)</span>
-        			</li>
-        			<li>
-            			<span>Fatimah</span>
-            			<span class="p-type">(Child)</span>
-        			</li>
+        			<ul class="p-list">
+                <?php foreach ($passengers as $passenger) { ?>
+                    <li>
+                        <span>
+                            <?php echo $passenger->getFirst_name()." ".
+                             $passenger->getLast_name(); ?>
+                        </span>
+                    </li>
+                <?php } ?>
         			<li class="empty-line"></li>
     			</ul>
 		</div>
@@ -82,20 +107,24 @@
                 <h3>Price details</h3>
                 <div class="price-row">
                     <span>Tickets</span>
-                    <span>1200</span>
+                    <span><?php echo $tickets?></span>
                 </div>
                 <div class="price-row">
                     <span>Seats</span>
-                    <span>50</span>
+                    <span><?php echo $seats;?></span>
                 </div>
                 <div class="price-row">
-                    <span>Extra</span>
-                    <span>0</span>
+                    <span>Meals</span>
+                    <span><?php echo $_SESSION['booking']['meals_total']?></span>
+                </div>
+                <div class="price-row">
+                    <span>Bags</span>
+                    <span><?php echo $_SESSION['booking']['bags_total']?></span>
                 </div>
                 <hr>
                 <div class="price-row total">
                     <span>Total</span>
-                    <span>1250</span>
+                    <span><?php echo $total;?></span>
                 </div>
             </div>
         </div>
@@ -103,8 +132,7 @@
         <div class="payment-section">
     <h3>Credit/Debit card details</h3>
     
-    <form action="save_card.php" method="POST">
-        
+    <form action="save_card.php" method="POST">        
         <div class="name-fields">
             <div class="form-group">
                 <label>F.Name</label>
@@ -179,7 +207,7 @@
 
         <div class="action-buttons">
             <button type="button" class="btn-back" onclick="window.history.back()">Back</button>
-            <button type="submit" class="btn-pay">Pay</button>
+            <button name="pay" type="submit" class="btn-pay">Pay</button>
         </div>
     </form>
 </div>
